@@ -1,8 +1,8 @@
-# ✦ CelestiaFlow
+# ✦ CelestiaSOUL
 
 > *Where astrology meets breathwork, healing frequencies & meditation — a complete sacred wellness platform.*
 
-![CelestiaFlow](https://img.shields.io/badge/CelestiaFlow-Sacred%20Wellness-8A5AFF?style=for-the-badge)
+![CelestiaSOUL](https://img.shields.io/badge/CelestiaSOUL-Sacred%20Wellness-8A5AFF?style=for-the-badge)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
 ![Supabase](https://img.shields.io/badge/Supabase-Database%20%26%20Auth-3ECF8E?style=for-the-badge&logo=supabase)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)
@@ -10,9 +10,9 @@
 
 ---
 
-## 🌙 About CelestiaFlow
+## 🌙 About CelestiaSOUL
 
-CelestiaFlow is a full-stack spiritual wellness platform that delivers a deeply personalized experience by combining:
+CelestiaSOUL is a full-stack spiritual wellness platform that delivers a deeply personalized experience by combining:
 
 - **Complete Natal Chart Astrology Readings** — powered by a live astrology API using real birth data
 - **Sacred Breathwork Sessions** — 6 zodiac-tuned breathing techniques with 10–30 minute intervals
@@ -56,8 +56,8 @@ Git
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/celestiaflow.git
-cd celestiaflow
+git clone https://github.com/YOUR_USERNAME/celestiasoul.git
+cd celestiasoul
 ```
 
 ### 2. Install Dependencies
@@ -169,7 +169,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📱 PWA Installation
 
-CelestiaFlow is a Progressive Web App — users can install it directly to their phone home screen without an app store.
+CelestiaSOUL is a Progressive Web App — users can install it directly to their phone home screen without an app store.
 
 On mobile, visit the site and tap **"Add to Home Screen"** in the browser menu. The app will install and behave like a native application.
 
@@ -199,7 +199,7 @@ On mobile, visit the site and tap **"Add to Home Screen"** in the browser menu. 
 ## 🗂 Project Structure
 
 ```
-celestiaflow/
+celestiasoul/
 ├── app/                    # Next.js App Router
 │   ├── (auth)/             # Authentication pages
 │   ├── dashboard/          # Soul Dashboard
@@ -236,7 +236,7 @@ celestiaflow/
 
 ## 📧 Email Automation
 
-CelestiaFlow sends the following automated emails via Resend:
+CelestiaSOUL sends the following automated emails via Resend:
 
 | Trigger | Email |
 |---|---|
@@ -251,7 +251,7 @@ CelestiaFlow sends the following automated emails via Resend:
 
 ## 🌐 Deployment
 
-CelestiaFlow deploys to **Vercel** with zero configuration:
+CelestiaSOUL deploys to **Vercel** with zero configuration:
 
 ```bash
 # Install Vercel CLI
@@ -268,20 +268,20 @@ vercel
 
 ## 👤 Founder
 
-**Emelda** — Founder & CEO of CelestiaFlow  
+**Emelda** — Founder & CEO of CelestiaSOUL
 Spiritual tech entrepreneur building the intersection of astrology, breathwork & healing frequencies.
 
 ---
 
 ## 📄 License
 
-Private & Proprietary · © 2026 CelestiaFlow · All rights reserved.
+Private & Proprietary · © 2026 CelestiaSOUL · All rights reserved.
 
 ---
 
 <div align="center">
 
-**✦ CelestiaFlow ✦**
+**✦ CelestiaSOUL ✦**
 
 *Sacred Breath · Cosmic Alignment · Soul Awakening*
 
