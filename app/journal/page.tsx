@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase } from '../../lib/supabase'
 
 export default function Journal() {
   const router = useRouter()
@@ -10,10 +11,38 @@ export default function Journal() {
   const [release2, setRelease2] = useState('')
   const [release3, setRelease3] = useState('')
   const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [pastEntries, setPastEntries] = useState<any[]>([])
+  const [showPast, setShowPast] = useState(false)
 
-  const save = () => {
+  useEffect(()=>{ loadEntries() },[])
+
+  const loadEntries = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+    const { data } = await supabase
+      .from('journal_entries')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(10)
+    if (data) setPastEntries(data)
+  }
+
+  const save = async () => {
+    setLoading(true)
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { router.push('/signin'); return }
+    await supabase.from('journal_entries').insert({
+      user_id: user.id,
+      moon_phase: 'Waning Gibbous',
+      entry_text: entry,
+      intentions: [intention, release1, release2, release3].filter(Boolean),
+    })
     setSaved(true)
     setTimeout(()=>setSaved(false), 3000)
+    loadEntries()
+    setLoading(false)
   }
 
   const prompts = [
@@ -93,13 +122,28 @@ export default function Journal() {
 
         {saved && (
           <div style={{background:'rgba(100,220,130,0.1)',border:'1px solid rgba(100,220,130,0.25)',borderRadius:'10px',padding:'12px',marginBottom:'14px',textAlign:'center',fontStyle:'italic',fontSize:'14px',color:'rgba(100,220,130,0.8)',letterSpacing:'2px'}}>
-            ✦ Your soul's words have been received ✦
+            ✦ Your soul's words have been saved to your sacred record ✦
           </div>
         )}
 
-        <button onClick={save} style={{width:'100%',padding:'15px',background:'linear-gradient(135deg,rgba(138,90,255,0.25),rgba(255,214,160,0.1))',border:'1px solid rgba(200,168,255,0.35)',borderRadius:'13px',fontStyle:'italic',fontSize:'16px',letterSpacing:'5px',color:'#E8E0FF',cursor:'pointer',marginBottom:'22px'}}>
-          Save My Reflection ✦
+        <button onClick={save} disabled={loading} style={{width:'100%',padding:'15px',background:'linear-gradient(135deg,rgba(138,90,255,0.25),rgba(255,214,160,0.1))',border:'1px solid rgba(200,168,255,0.35)',borderRadius:'13px',fontStyle:'italic',fontSize:'16px',letterSpacing:'5px',color:'#E8E0FF',cursor:'pointer',marginBottom:'22px'}}>
+          {loading ? '✦ Saving...' : 'Save My Reflection ✦'}
         </button>
+
+        {pastEntries.length > 0 && (
+          <div style={{marginBottom:'22px'}}>
+            <div onClick={()=>setShowPast(!showPast)} style={{display:'flex',alignItems:'center',justifyContent:'space-between',cursor:'pointer',marginBottom:'12px'}}>
+              <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)'}}>✦ PAST REFLECTIONS ✦</p>
+              <span style={{fontSize:'12px',color:'rgba(200,168,255,0.4)'}}>{showPast?'▲ Hide':'▼ Show'}</span>
+            </div>
+            {showPast && pastEntries.map((e,i)=>(
+              <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'12px',padding:'16px',marginBottom:'10px'}}>
+                <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'2px',color:'rgba(200,168,255,0.35)',marginBottom:'8px'}}>{new Date(e.created_at).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}</p>
+                <p style={{fontStyle:'italic',fontSize:'13px',color:'rgba(220,210,255,0.6)',lineHeight:1.8,margin:0}}>{e.entry_text}</p>
+              </div>
+            ))}
+          </div>
+        )}
 
         <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',padding:'14px 0 0',borderTop:'1px solid rgba(200,168,255,0.07)'}}>
           {[['✦','Home','/dashboard'],['༄','Breathe','/breathing'],['◎','Music','/music'],['☿','Reading','/reading'],['☽','Journal','/journal']].map(([icon,label,route])=>(
