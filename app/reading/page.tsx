@@ -1,16 +1,36 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import { supabase } from '../../lib/supabase'
 
 export default function Reading() {
   const router = useRouter()
   const [tab, setTab] = useState(0)
   const [reading, setReading] = useState<any>(null)
   const [loading, setLoading] = useState(false)
+  const [sunSign, setSunSign] = useState('Aries')
+  const [moonSign, setMoonSign] = useState('Leo')
+  const [rising, setRising] = useState('Scorpio')
+  const [chartData, setChartData] = useState<any>(null)
 
-  const sunSign = 'Aries'
-  const moonSign = 'Leo'
-  const rising = 'Scorpio'
+  useEffect(() => { loadChart() }, [])
+
+  const loadChart = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+    const { data } = await supabase
+      .from('birth_charts')
+      .select('*')
+      .eq('user_id', user.id)
+      .single()
+    if (data) {
+      if (data.sun_sign) setSunSign(data.sun_sign)
+      if (data.moon_sign) setMoonSign(data.moon_sign)
+      if (data.rising_sign) setRising(data.rising_sign)
+      setChartData(data)
+    }
+    fetchReading()
+  }
 
   const fetchReading = async () => {
     setLoading(true)
@@ -32,8 +52,6 @@ export default function Reading() {
     }
     setLoading(false)
   }
-
-  useEffect(() => { fetchReading() }, [])
 
   const tabs = ["Today's Reading", "Natal Blueprint", "Transits"]
 
@@ -130,14 +148,25 @@ export default function Reading() {
               <div style={{display:'flex',alignItems:'center',gap:'18px',marginBottom:'18px'}}>
                 <div style={{width:'64px',height:'64px',borderRadius:'50%',background:'radial-gradient(circle,#C8A8FF,#3A1580)',border:'1px solid rgba(200,168,255,0.4)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'24px',flexShrink:0}}>✦</div>
                 <div>
-                  <div style={{fontStyle:'italic',fontSize:'24px',letterSpacing:'4px',color:'#E8E0FF',marginBottom:'4px'}}>Emelda</div>
-                  <div style={{fontFamily:'sans-serif',fontSize:'11px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)'}}>☉ Aries · ☽ Leo · ↑ Scorpio Rising</div>
+                  <div style={{fontStyle:'italic',fontSize:'24px',letterSpacing:'4px',color:'#E8E0FF',marginBottom:'4px'}}>Your Soul</div>
+                  <div style={{fontFamily:'sans-serif',fontSize:'11px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)'}}>☉ {sunSign} · ☽ {moonSign} · ↑ {rising} Rising</div>
                 </div>
               </div>
-              <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'1px',color:'rgba(220,210,255,0.65)',lineHeight:1.9,borderTop:'1px solid rgba(200,168,255,0.08)',paddingTop:'16px',margin:0}}>You are a soul forged in celestial fire — the bold pioneer of Aries, the radiant heart of Leo, and the penetrating depth of Scorpio Rising. You came into this life to lead, to love fiercely, and to transform everything you touch.</p>
+              {!chartData && (
+                <div style={{borderTop:'1px solid rgba(200,168,255,0.08)',paddingTop:'16px'}}>
+                  <p style={{fontStyle:'italic',fontSize:'14px',color:'rgba(220,210,255,0.65)',lineHeight:1.9,marginBottom:'12px'}}>Complete your birth chart to unlock your full Soul Blueprint!</p>
+                  <button onClick={()=>router.push('/birthchart')} style={{padding:'10px 24px',background:'rgba(138,90,255,0.3)',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'20px',fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer'}}>Complete My Chart ✦</button>
+                </div>
+              )}
+              {chartData && (
+                <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'1px',color:'rgba(220,210,255,0.65)',lineHeight:1.9,borderTop:'1px solid rgba(200,168,255,0.08)',paddingTop:'16px',margin:0}}>
+                  Born in {chartData.birth_city}{chartData.birth_country?`, ${chartData.birth_country}`:''} — your soul chose this exact moment to arrive. The stars aligned perfectly for your unique journey.
+                </p>
+              )}
             </div>
+
             <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:'8px'}}>
-              {[['☉','Sun','Aries'],['☽','Moon','Leo'],['↑','Rising','Scorpio'],['♀','Venus','Pisces'],['♂','Mars','Gemini'],['♃','Jupiter','Sagittarius'],['♄','Saturn','Capricorn'],['♅','Uranus','Aquarius'],['♆','Neptune','Capricorn'],['♇','Pluto','Scorpio']].map(([sym,name,sign])=>(
+              {[['☉','Sun',sunSign],['☽','Moon',moonSign],['↑','Rising',rising],['♀','Venus','Pisces'],['♂','Mars','Gemini'],['♃','Jupiter','Sagittarius'],['♄','Saturn','Capricorn'],['♅','Uranus','Aquarius'],['♆','Neptune','Capricorn'],['♇','Pluto','Scorpio']].map(([sym,name,sign])=>(
                 <div key={name} style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'12px',padding:'11px 6px',textAlign:'center'}}>
                   <span style={{fontSize:'16px',display:'block',marginBottom:'4px'}}>{sym}</span>
                   <div style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.4)',marginBottom:'2px'}}>{name}</div>
