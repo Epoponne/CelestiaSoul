@@ -56,7 +56,7 @@ export default function BirthChart() {
       email: user.email,
     })
     setLoading(false)
-    router.push('/dashboard')
+    router.push('/reading')
   }
 
   const inputStyle = {
