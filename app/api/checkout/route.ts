@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
             currency: 'usd',
             product_data: {
               name: 'CelestiaSOUL Soul Member',
-              description: 'Full access to astrology readings, breathwork, healing frequencies & meditation',
+              description: '3 Days Free Trial - Then $10/month. Full access to astrology readings, breathwork, healing frequencies & meditation',
             },
             unit_amount: 1000,
             recurring: { interval: 'month' },
@@ -24,7 +24,9 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
       ],
-      trial_period_days: 3,
+      subscription_data: {
+        trial_period_days: 3,
+      },
       success_url: 'https://celestiasoul.com/dashboard?success=true',
       cancel_url: 'https://celestiasoul.com/pricing?canceled=true',
     })
