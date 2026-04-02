@@ -4,15 +4,14 @@ import { useState, useEffect, useRef } from 'react'
 
 export default function Breathing() {
   const router = useRouter()
+  const star = '\u2726'
   const [running, setRunning] = useState(false)
   const [phase, setPhase] = useState('tap to begin')
-  const [count, setCount] = useState<any>('✦')
+  const [count, setCount] = useState<any>(star)
   const [scale, setScale] = useState(1)
   const [cycles, setCycles] = useState(0)
-  const [elapsed, setElapsed] = useState(0)
   const [tech, setTech] = useState(0)
   const [freq, setFreq] = useState(2)
-  const timerR = useRef<any>(null)
   const phaseR = useRef<any>(null)
   const countR = useRef<any>(null)
 
@@ -45,20 +44,24 @@ export default function Breathing() {
     let c = p.d
     setCount(c)
     clearInterval(countR.current)
-    countR.current = setInterval(()=>{c--;setCount(c<=0?'✦':c);if(c<=0)clearInterval(countR.current)},1000)
+    countR.current = setInterval(()=>{c--;setCount(c<=0?star:c);if(c<=0)clearInterval(countR.current)},1000)
     phaseR.current = setTimeout(()=>runPhase(idx+1,cc),p.d*1000)
   }
 
   const start = () => {
-    setRunning(true);setElapsed(0);setCycles(0)
-    timerR.current = setInterval(()=>setElapsed(e=>e+1),1000)
+    setCycles(0)
+    setRunning(true)
     runPhase(0,0)
   }
 
   const stop = () => {
     setRunning(false)
-    clearInterval(timerR.current);clearTimeout(phaseR.current);clearInterval(countR.current)
-    setPhase('tap to begin');setCount('✦');setScale(1);setElapsed(0);setCycles(0)
+    clearTimeout(phaseR.current)
+    clearInterval(countR.current)
+    setPhase('tap to begin')
+    setCount(star)
+    setScale(1)
+    setCycles(0)
   }
 
   useEffect(()=>{if(cycles>=3&&running)stop()},[cycles])
@@ -68,16 +71,16 @@ export default function Breathing() {
       <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 60px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
-          <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
+          <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
           <button onClick={()=>router.push('/dashboard')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Dashboard</button>
         </nav>
 
         <div style={{textAlign:'center',marginBottom:'24px'}}>
-          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>SACRED BREATH</p>
+          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>{star} SACRED BREATH {star}</p>
           <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'40px',letterSpacing:'6px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:0}}>CelestiaSOUL</h1>
         </div>
 
-        <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',textAlign:'center',marginBottom:'12px'}}>Choose Your Technique</p>
+        <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',textAlign:'center',marginBottom:'12px'}}>{star} Choose Your Technique {star}</p>
         <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'9px',marginBottom:'24px'}}>
           {techniques.map((tc,i)=>(
             <div key={tc.name} onClick={()=>!running&&setTech(i)} style={{background:tech===i?'rgba(138,90,255,0.15)':'rgba(255,255,255,0.03)',border:`1px solid ${tech===i?'rgba(200,168,255,0.45)':'rgba(200,168,255,0.1)'}`,borderRadius:'13px',padding:'13px 8px',textAlign:'center',cursor:'pointer'}}>
@@ -88,7 +91,7 @@ export default function Breathing() {
           ))}
         </div>
 
-        <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',textAlign:'center',marginBottom:'12px'}}>Healing Frequency</p>
+        <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',textAlign:'center',marginBottom:'12px'}}>{star} Healing Frequency {star}</p>
         <div style={{display:'flex',flexWrap:'wrap',gap:'7px',justifyContent:'center',marginBottom:'28px'}}>
           {freqs.map((f,i)=>(
             <div key={f} onClick={()=>setFreq(i)} style={{background:freq===i?'rgba(255,214,160,0.18)':'rgba(255,214,160,0.06)',border:`1px solid ${freq===i?'#FFD6A0':'rgba(255,214,160,0.18)'}`,borderRadius:'20px',padding:'5px 11px',fontSize:'10px',color:'#FFD6A0',cursor:'pointer',fontFamily:'sans-serif'}}>{f}</div>
@@ -117,14 +120,15 @@ export default function Breathing() {
         </button>
 
         <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'13px',padding:'16px 20px',textAlign:'center'}}>
-          <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(155,143,191,0.65)',marginBottom:'8px'}}>Today's Affirmation</p>
+          <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(155,143,191,0.65)',marginBottom:'8px'}}>{star} Today's Affirmation {star}</p>
           <p style={{fontStyle:'italic',fontSize:'14px',color:'#C8A8FF',lineHeight:1.8,margin:0}}>Each breath fans the flame of your divine courage and unstoppable will.</p>
         </div>
 
         <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',padding:'24px 0 0',borderTop:'1px solid rgba(200,168,255,0.07)',marginTop:'24px'}}>
-          {[['Home','/dashboard'],['Breathe','/breathing'],['Music','/music'],['Reading','/reading'],['Journal','/journal']].map(([label,route]) => (
+          {[[star,'Home','/dashboard'],['༄','Breathe','/breathing'],['◎','Music','/music'],['☿','Reading','/reading'],['☽','Journal','/journal']].map(([icon,label,route]) => (
             <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 12px'}}>
-              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:route==='/breathing'?'rgba(200,168,255,0.7)':'rgba(200,168,255,0.35)',textTransform:'uppercase'}}>{label}</span>
+              <span style={{fontSize:'18px',color:'rgba(200,168,255,0.5)'}}>{icon}</span>
+              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.35)',textTransform:'uppercase'}}>{label}</span>
             </div>
           ))}
         </div>
