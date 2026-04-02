@@ -23,7 +23,14 @@ export default function SignIn() {
         options: { data: { full_name: fullName } }
       })
       if (error) setMessage(error.message)
-      else setMessage(`${star} Account created! Please sign in.`)
+      else {
+        await fetch('/api/welcome', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ email, name: fullName })
+        })
+        setMessage(`${star} Account created! Please sign in.`)
+      }
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) setMessage(error.message)
