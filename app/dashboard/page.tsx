@@ -63,7 +63,7 @@ export default function Dashboard() {
           {[
             {icon:'🌙',title:'4-7-8 Lunar Breath',desc:'Your Sun calls for the grounding lunar rhythm today.',meta:'20 min · 528 Hz',badge:'Ready',route:'/breathing'},
             {icon:'🌌',title:'Cosmic Soundbath',desc:'Deep immersion with Solfeggio tones.',meta:'30 min · 639 Hz',badge:'New',route:'/music'},
-            {icon:'⭐',title:'Morning Reading',desc:'Your daily astrological insight has been delivered.',meta:'Completed at 7:14am',badge:'Done',route:'/reading'},
+            {icon:'⭐',title:'Morning Reading',desc:'Your daily astrological insight has been delivered.',meta:'Tap to read',badge:'Ready',route:'/reading'},
             {icon:'💎',title:'Crystal Heart Flow',desc:'Evening breathwork session.',meta:'15 min · 741 Hz',badge:'Ready',route:'/breathing'},
           ].map(({icon,title,desc,meta,badge,route}) => (
             <div key={title} onClick={() => router.push(route)} style={{background:'rgba(255,255,255,0.028)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'16px',padding:'20px 16px',cursor:'pointer'}}>
@@ -83,9 +83,14 @@ export default function Dashboard() {
           <div style={{fontStyle:'italic',fontWeight:300,fontSize:'16px',letterSpacing:'1.5px',color:'rgba(220,210,255,0.75)',lineHeight:1.8}}>"I am the fire that illuminates the dark. I breathe in my divine power and exhale all that dims my light."</div>
         </div>
 
+        <div onClick={()=>router.push('/pricing')} style={{background:'linear-gradient(135deg,rgba(138,90,255,0.2),rgba(255,214,160,0.08))',border:'1px solid rgba(200,168,255,0.25)',borderRadius:'16px',padding:'16px 20px',marginBottom:'22px',textAlign:'center',cursor:'pointer'}}>
+          <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'4px'}}>Unlock Full Sacred Access</p>
+          <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(255,214,160,0.6)',letterSpacing:'2px'}}>$10/month · 3-day free trial</p>
+        </div>
+
         <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',padding:'14px 0 0',borderTop:'1px solid rgba(200,168,255,0.07)'}}>
           {[['Home','/dashboard'],['Breathe','/breathing'],['Music','/music'],['Reading','/reading'],['Journal','/journal']].map(([label,route]) => (
-            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 12px',borderRadius:'10px'}}>
+            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 12px'}}>
               <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',textTransform:'uppercase'}}>{label}</span>
             </div>
           ))}
