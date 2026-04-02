@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 export default function Dashboard() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
+  const star = '\u2726'
 
   useEffect(() => {
     const getUser = async () => {
@@ -26,12 +27,12 @@ export default function Dashboard() {
       <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 60px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
-          <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
+          <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
           <button onClick={signOut} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Sign Out</button>
         </nav>
 
         <div style={{padding:'20px 0 24px'}}>
-          <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'10px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',display:'block',marginBottom:'6px'}}>welcome back, beloved soul</span>
+          <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'10px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',display:'block',marginBottom:'6px'}}>{star} welcome back, beloved soul {star}</span>
           <span style={{fontStyle:'italic',fontWeight:300,fontSize:'38px',letterSpacing:'4px',display:'block',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'6px'}}>
             {user?.user_metadata?.full_name || 'Soul Seeker'}
           </span>
@@ -58,7 +59,7 @@ export default function Dashboard() {
           ))}
         </div>
 
-        <span style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',display:'block',marginBottom:'12px'}}>Today's Sacred Practice</span>
+        <span style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',display:'block',marginBottom:'12px'}}>{star} Today's Sacred Practice {star}</span>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px',marginBottom:'22px'}}>
           {[
             {icon:'🌙',title:'4-7-8 Lunar Breath',desc:'Your Sun calls for the grounding lunar rhythm today.',meta:'20 min · 528 Hz',badge:'Ready',route:'/breathing'},
@@ -79,19 +80,20 @@ export default function Dashboard() {
         </div>
 
         <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'16px',padding:'22px 24px',textAlign:'center',marginBottom:'22px'}}>
-          <span style={{fontStyle:'italic',fontSize:'10px',letterSpacing:'4px',color:'rgba(200,168,255,0.35)',display:'block',marginBottom:'10px'}}>Your Cosmic Affirmation</span>
+          <span style={{fontStyle:'italic',fontSize:'10px',letterSpacing:'4px',color:'rgba(200,168,255,0.35)',display:'block',marginBottom:'10px'}}>{star} Your Cosmic Affirmation {star}</span>
           <div style={{fontStyle:'italic',fontWeight:300,fontSize:'16px',letterSpacing:'1.5px',color:'rgba(220,210,255,0.75)',lineHeight:1.8}}>"I am the fire that illuminates the dark. I breathe in my divine power and exhale all that dims my light."</div>
         </div>
 
         <div onClick={()=>router.push('/pricing')} style={{background:'linear-gradient(135deg,rgba(138,90,255,0.2),rgba(255,214,160,0.08))',border:'1px solid rgba(200,168,255,0.25)',borderRadius:'16px',padding:'16px 20px',marginBottom:'22px',textAlign:'center',cursor:'pointer'}}>
-          <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'4px'}}>Unlock Full Sacred Access</p>
+          <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'4px'}}>{star} Unlock Full Sacred Access {star}</p>
           <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(255,214,160,0.6)',letterSpacing:'2px'}}>$10/month · 3-day free trial</p>
         </div>
 
         <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',padding:'14px 0 0',borderTop:'1px solid rgba(200,168,255,0.07)'}}>
-          {[['Home','/dashboard'],['Breathe','/breathing'],['Music','/music'],['Reading','/reading'],['Journal','/journal']].map(([label,route]) => (
-            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 12px'}}>
-              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',textTransform:'uppercase'}}>{label}</span>
+          {[[star,'Home','/dashboard'],['༄','Breathe','/breathing'],['◎','Music','/music'],['☿','Reading','/reading'],['☽','Journal','/journal']].map(([icon,label,route]) => (
+            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 12px',borderRadius:'10px'}}>
+              <span style={{fontSize:'18px',color:'rgba(200,168,255,0.5)'}}>{icon}</span>
+              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.35)',textTransform:'uppercase'}}>{label}</span>
             </div>
           ))}
         </div>
