@@ -11,11 +11,19 @@ export default function Music() {
   const tracks = [
     {icon:'🔴',name:'Guilt Release Pulse',hz:'396 Hz · Liberation',file:'guilt-release-pulse-solfeggio-396-hz-theta-7hz-preview.mp3'},
     {icon:'🟠',name:'Harmonic Transition',hz:'417 Hz · Transformation',file:'harmonic-transition-solfeggio-417hz-preview.mp3'},
-    {icon:'💛',name:"Nature's Embrace",hz:'528 Hz · DNA Repair',file:'dream-weaver-s-lullaby-solfeggio-528-nz-alpha-14-hz-preview.mp3'},
-    {icon:'💚',name:"Canyon Spirits",hz:'639 Hz · Heart Chakra',file:'nature-s-embrace-solfeggio-639-hz-alpha-12hz-preview.mp3'},
+    {icon:'💛',name:"Dream Weaver Lullaby",hz:'528 Hz · DNA Repair',file:'dream-weaver-s-lullaby-solfeggio-528-nz-alpha-14-hz-preview.mp3'},
+    {icon:'💚',name:"Nature's Embrace",hz:'639 Hz · Heart Chakra',file:'nature-s-embrace-solfeggio-639-hz-alpha-12hz-preview.mp3'},
     {icon:'🔵',name:'Canyon Spirits Rising',hz:'741 Hz · Intuition',file:'canyon-spirits-rising-solfeggio-741-hz-preview.mp3'},
     {icon:'🟣',name:'Clear Inner Vision',hz:'852 Hz · Third Eye',file:'clear-inner-vision-solfeggio-852-hz-beta-25hz-preview.mp3'},
     {icon:'⚪',name:'Crown Chakra Music',hz:'963 Hz · Crown Chakra',file:'crown-chakra-music-solfeggio-963-hz-beta-30-hz-preview.mp3'},
+  ]
+
+  const navItems = [
+    {label:'Home', route:'/dashboard', emoji:'🏠'},
+    {label:'Breathe', route:'/breathing', emoji:'🌬️'},
+    {label:'Music', route:'/music', emoji:'🎵'},
+    {label:'Reading', route:'/reading', emoji:'🔮'},
+    {label:'Journal', route:'/journal', emoji:'📓'},
   ]
 
   const playTrack = (i: number) => {
@@ -36,7 +44,7 @@ export default function Music() {
 
   return (
     <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
-      <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 60px'}}>
+      <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
           <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
@@ -77,21 +85,19 @@ export default function Music() {
           ))}
         </div>
 
-        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',padding:'14px 0 0',borderTop:'1px solid rgba(200,168,255,0.07)'}}>
-          {[[star,'Home','/dashboard'],['༄','Breathe','/breathing'],['◎','Music','/music'],['☿','Reading','/reading'],['☽','Journal','/journal']].map(([icon,label,route]) => (
-            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 12px'}}>
-              <span style={{fontSize:'18px',color:route==='/music'?'#C8A8FF':'rgba(200,168,255,0.3)'}}>{icon}</span>
-              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:route==='/music'?'rgba(200,168,255,0.7)':'rgba(200,168,255,0.35)',textTransform:'uppercase'}}>{label}</span>
+      </div>
+
+      <div style={{position:'fixed',bottom:0,left:0,right:0,background:'rgba(6,5,14,0.95)',borderTop:'1px solid rgba(200,168,255,0.12)',padding:'12px 0',zIndex:100}}>
+        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',maxWidth:'680px',margin:'0 auto'}}>
+          {navItems.map(({label,route,emoji}) => (
+            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 16px',borderRadius:'10px'}}>
+              <span style={{fontSize:'20px'}}>{emoji}</span>
+              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:route==='/music'?'rgba(200,168,255,0.9)':'rgba(200,168,255,0.4)',textTransform:'uppercase'}}>{label}</span>
             </div>
           ))}
         </div>
-
       </div>
+
     </main>
-    c:\Users\14804\Downloads\Tone-396hz.mp3
-    c:\Users\14804\Downloads\Tone-417hz.mp3
-    c:\Users\14804\Downloads\Tone-528hz.mp3
-    c:\Users\14804\Downloads\Tone-741hz.mp3
-    c:\Users\14804\Downloads\Tone-963hz.mp3
-    c:\Users\14804\Downloads\Tone-639hz.mp3
-    c:\Users\14804\Downloads\tone-852hz.mp3
+  )
+}
