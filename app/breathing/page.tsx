@@ -23,12 +23,12 @@ export default function Breathing() {
   const audioRef = useRef<HTMLAudioElement|null>(null)
 
   const allTechniques = [
-    {name:'Solar Fire',icon:'☀️',i:6,h:0,o:6,h2:0,free:true},
-    {name:'4-7-8 Lunar',icon:'🌙',i:4,h:7,o:8,h2:0,free:false},
-    {name:'Box Sacred',icon:'🔲',i:4,h:4,o:4,h2:4,free:false},
-    {name:'Earth Root',icon:'🌿',i:5,h:2,o:7,h2:0,free:false},
-    {name:'Crystal Heart',icon:'💎',i:3,h:3,o:6,h2:3,free:false},
-    {name:'Cosmos Deep',icon:'🌌',i:8,h:8,o:8,h2:0,free:false},
+    {name:'Solar Fire',icon:'sun',i:6,h:0,o:6,h2:0,free:true},
+    {name:'4-7-8 Lunar',icon:'moon',i:4,h:7,o:8,h2:0,free:false},
+    {name:'Box Sacred',icon:'box',i:4,h:4,o:4,h2:4,free:false},
+    {name:'Earth Root',icon:'leaf',i:5,h:2,o:7,h2:0,free:false},
+    {name:'Crystal Heart',icon:'gem',i:3,h:3,o:6,h2:3,free:false},
+    {name:'Cosmos Deep',icon:'star',i:8,h:8,o:8,h2:0,free:false},
   ]
 
   const allFreqs = [
@@ -48,6 +48,15 @@ export default function Breathing() {
     {label:'Reading', route:'/reading', emoji:'🔮'},
     {label:'Journal', route:'/journal', emoji:'📓'},
   ]
+
+  const iconMap: any = {
+    sun: '\u2600\uFE0F',
+    moon: '\uD83C\uDF19',
+    box: '\uD83D\uDFE5',
+    leaf: '\uD83C\uDF3F',
+    gem: '\uD83D\uDC8E',
+    star: '\uD83C\uDF0C',
+  }
 
   const t = allTechniques[tech]
 
@@ -165,7 +174,7 @@ export default function Breathing() {
               {!tc.free && !isPaid && (
                 <div style={{position:'absolute',top:'6px',right:'6px',fontSize:'10px'}}>🔒</div>
               )}
-              <span style={{fontSize:'20px',display:'block',marginBottom:'5px'}}>{tc.icon}</span>
+              <span style={{fontSize:'20px',display:'block',marginBottom:'5px'}}>{iconMap[tc.icon]}</span>
               <div style={{fontStyle:'italic',fontSize:'12px',color:'#C8A8FF',marginBottom:'3px'}}>{tc.name}</div>
               <div style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(180,160,220,0.45)'}}>{tc.i}·{tc.h||'-'}·{tc.o}{tc.h2?`·${tc.h2}`:''}</div>
             </div>
