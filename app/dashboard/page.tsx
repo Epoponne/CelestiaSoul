@@ -6,25 +6,63 @@ import { supabase } from '../../lib/supabase'
 export default function Dashboard() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
+  const [stats, setStats] = useState({sessions:0, cycles:0, streak:0, hours:0})
   const star = '\u2726'
 
   useEffect(() => {
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) router.push('/signin')
-      else setUser(user)
+      else {
+        setUser(user)
+        loadStats(user.id)
+      }
     }
     getUser()
   }, [])
+
+  const loadStats = async (userId: string) => {
+    const { data } = await supabase
+      .from('sessions')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+
+    if (data) {
+      const sessions = data.length
+      const cycles = data.reduce((acc, s) => acc + (s.cycles || 0), 0)
+      const hours = Math.round((data.reduce((acc, s) => acc + (s.duration_seconds || 0), 0) / 3600) * 10) / 10
+
+      const dates = [...new Set(data.map(s => new Date(s.created_at).toDateString()))]
+      let streak = 0
+      const today = new Date()
+      for (let i = 0; i < dates.length; i++) {
+        const d = new Date(today)
+        d.setDate(d.getDate() - i)
+        if (dates.includes(d.toDateString())) streak++
+        else break
+      }
+
+      setStats({sessions, cycles, streak, hours})
+    }
+  }
 
   const signOut = async () => {
     await supabase.auth.signOut()
     router.push('/')
   }
 
+  const navItems = [
+    {label:'Home', route:'/dashboard', emoji:'🏠'},
+    {label:'Breathe', route:'/breathing', emoji:'🌬️'},
+    {label:'Music', route:'/music', emoji:'🎵'},
+    {label:'Reading', route:'/reading', emoji:'🔮'},
+    {label:'Journal', route:'/journal', emoji:'📓'},
+  ]
+
   return (
     <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
-      <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 60px'}}>
+      <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
           <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
@@ -51,7 +89,12 @@ export default function Dashboard() {
         </div>
 
         <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'10px',marginBottom:'22px'}}>
-          {[['14','Day Streak'],['38','Sessions'],['9.4h','Breathwork'],['7','Cycles']].map(([val,lbl]) => (
+          {[
+            [stats.streak.toString(),'Day Streak'],
+            [stats.sessions.toString(),'Sessions'],
+            [stats.hours.toString()+'h','Breathwork'],
+            [stats.cycles.toString(),'Cycles']
+          ].map(([val,lbl]) => (
             <div key={lbl} style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'12px',padding:'14px 10px',textAlign:'center'}}>
               <span style={{fontStyle:'italic',fontSize:'26px',color:'#C8A8FF',display:'block',marginBottom:'3px'}}>{val}</span>
               <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.35)',textTransform:'uppercase'}}>{lbl}</span>
@@ -62,10 +105,10 @@ export default function Dashboard() {
         <span style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',display:'block',marginBottom:'12px'}}>{star} Today's Sacred Practice {star}</span>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px',marginBottom:'22px'}}>
           {[
-            {icon:'🌙',title:'4-7-8 Lunar Breath',desc:'Your Sun calls for the grounding lunar rhythm today.',meta:'20 min · 528 Hz',badge:'Ready',route:'/breathing'},
+            {icon:'🌙',title:'Sacred Breathwork',desc:'Choose your technique and healing frequency.',meta:'Begin your session',badge:'Ready',route:'/breathing'},
             {icon:'🌌',title:'Cosmic Soundbath',desc:'Deep immersion with Solfeggio tones.',meta:'30 min · 639 Hz',badge:'New',route:'/music'},
             {icon:'⭐',title:'Morning Reading',desc:'Your daily astrological insight has been delivered.',meta:'Tap to read',badge:'Ready',route:'/reading'},
-            {icon:'💎',title:'Crystal Heart Flow',desc:'Evening breathwork session.',meta:'15 min · 741 Hz',badge:'Ready',route:'/breathing'},
+            {icon:'📓',title:'Soul Journal',desc:'Reflect on your cosmic journey today.',meta:'Write your truth',badge:'Ready',route:'/journal'},
           ].map(({icon,title,desc,meta,badge,route}) => (
             <div key={title} onClick={() => router.push(route)} style={{background:'rgba(255,255,255,0.028)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'16px',padding:'20px 16px',cursor:'pointer'}}>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'10px'}}>
@@ -89,16 +132,19 @@ export default function Dashboard() {
           <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(255,214,160,0.6)',letterSpacing:'2px'}}>$10/month · 3-day free trial</p>
         </div>
 
-        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',padding:'14px 0 0',borderTop:'1px solid rgba(200,168,255,0.07)'}}>
-          {[[star,'Home','/dashboard'],['༄','Breathe','/breathing'],['◎','Music','/music'],['☿','Reading','/reading'],['☽','Journal','/journal']].map(([icon,label,route]) => (
-            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 12px',borderRadius:'10px'}}>
-              <span style={{fontSize:'18px',color:'rgba(200,168,255,0.5)'}}>{icon}</span>
-              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.35)',textTransform:'uppercase'}}>{label}</span>
+      </div>
+
+      <div style={{position:'fixed',bottom:0,left:0,right:0,background:'rgba(6,5,14,0.95)',borderTop:'1px solid rgba(200,168,255,0.12)',padding:'12px 0',zIndex:100}}>
+        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',maxWidth:'680px',margin:'0 auto'}}>
+          {navItems.map(({label,route,emoji}) => (
+            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 16px',borderRadius:'10px'}}>
+              <span style={{fontSize:'20px'}}>{emoji}</span>
+              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:route==='/dashboard'?'rgba(200,168,255,0.9)':'rgba(200,168,255,0.4)',textTransform:'uppercase'}}>{label}</span>
             </div>
           ))}
         </div>
-
       </div>
+
     </main>
   )
 }
