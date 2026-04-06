@@ -40,25 +40,88 @@ export default function Reading() {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          sunSign,
-          moonSign,
-          rising,
+          sunSign, moonSign, rising,
           date: new Date().toLocaleDateString('en-US', {weekday:'long',year:'numeric',month:'long',day:'numeric'})
         })
       })
       const data = await res.json()
       setReading(data)
-    } catch(e) {
-      console.error(e)
-    }
+    } catch(e) { console.error(e) }
     setLoading(false)
   }
 
   const tabs = ["Today's Reading", "Natal Blueprint", "Transits"]
 
+  const navItems = [
+    {label:'Home', route:'/dashboard', emoji:'🏠'},
+    {label:'Breathe', route:'/breathing', emoji:'🌬️'},
+    {label:'Music', route:'/music', emoji:'🎵'},
+    {label:'Reading', route:'/reading', emoji:'🔮'},
+    {label:'Journal', route:'/journal', emoji:'📓'},
+  ]
+
+  const transits = [
+    {
+      planet:'☀️ Sun',
+      title:'Sun conjunct natal Sun',
+      desc:'Solar Return · Peak energy',
+      effect:'Empowering',
+      color:'rgba(255,214,100,0.7)',
+      meaning:'Your Solar Return brings a powerful surge of vitality and confidence. This is your moment to step fully into your light, set bold intentions and claim what is rightfully yours. The universe is spotlighting your soul — let yourself be seen.'
+    },
+    {
+      planet:'♀ Venus',
+      title:'Venus trine natal Moon',
+      desc:'Emotional harmony · Love opens',
+      effect:'Flowing',
+      color:'rgba(255,150,200,0.7)',
+      meaning:'Your heart is wide open right now. Relationships deepen with ease and grace. This is a beautiful time to express love, receive affection and nurture the bonds that matter most to your soul. Allow yourself to be cherished.'
+    },
+    {
+      planet:'☿ Mercury',
+      title:'Mercury direct in 10th House',
+      desc:'Career clarity returns',
+      effect:'Clearing',
+      color:'rgba(100,220,255,0.7)',
+      meaning:'After a period of confusion, mental clarity returns to your career and life purpose. Communications flow easily and decisions made now carry weight. Speak your vision boldly — the universe is listening and aligning doors in your favor.'
+    },
+    {
+      planet:'♂ Mars',
+      title:'Mars square natal Venus',
+      desc:'Tension in relationships possible',
+      effect:'Challenging',
+      color:'rgba(255,120,80,0.7)',
+      meaning:'Friction may arise in your closest relationships today. Mars is asking you to examine where you have been holding back your truth. Use this fiery energy to set loving boundaries and speak authentically. Growth lives just beyond your comfort zone.'
+    },
+    {
+      planet:'♃ Jupiter',
+      title:'Jupiter sextile natal Mars',
+      desc:'Expansion · New opportunities',
+      effect:'Expanding',
+      color:'rgba(100,220,130,0.7)',
+      meaning:'The planet of abundance is activating your drive and ambition. New opportunities are arriving that align perfectly with your soul\'s purpose. Say yes to expansion. Say yes to growth. The universe is conspiring in your favor right now.'
+    },
+    {
+      planet:'♄ Saturn',
+      title:'Saturn opposite natal Moon',
+      desc:'Emotional patterns being tested',
+      effect:'Testing',
+      color:'rgba(200,168,255,0.7)',
+      meaning:'Saturn is asking you to look at old emotional patterns that no longer serve your highest path. This may feel heavy but it is a sacred invitation to release what you have outgrown. The discomfort you feel today is the doorway to your freedom.'
+    },
+    {
+      planet:'♇ Pluto',
+      title:'Pluto trine natal Sun',
+      desc:'Deep transformation · Power aligned',
+      effect:'Transforming',
+      color:'rgba(180,100,255,0.7)',
+      meaning:'Pluto\'s transformative power is flowing harmoniously with your core identity. You are being reborn at the deepest level. Old versions of yourself are dissolving to make way for the most authentic, powerful expression of who you truly are.'
+    },
+  ]
+
   return (
     <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
-      <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 60px'}}>
+      <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
           <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
@@ -85,7 +148,6 @@ export default function Reading() {
                 <p style={{fontFamily:'sans-serif',fontSize:'11px',letterSpacing:'3px',color:'rgba(200,168,255,0.3)',marginTop:'8px'}}>Generating your personalized reading</p>
               </div>
             )}
-
             {!loading && reading && (
               <div>
                 <div style={{background:'linear-gradient(135deg,rgba(255,214,160,0.08),rgba(138,90,255,0.06))',border:'1px solid rgba(255,214,160,0.15)',borderRadius:'14px',padding:'14px 18px',marginBottom:'16px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
@@ -98,7 +160,6 @@ export default function Reading() {
                     <div style={{fontFamily:'sans-serif',fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.4)'}}>{rising} Rising</div>
                   </div>
                 </div>
-
                 {[
                   {icon:'♀',title:'Love & Relationships',text:reading.love,color:'rgba(255,130,180,0.5)'},
                   {icon:'☿',title:'Career & Purpose',text:reading.career,color:'rgba(255,214,160,0.5)'},
@@ -112,16 +173,14 @@ export default function Reading() {
                     <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'1px',color:'rgba(220,210,255,0.7)',lineHeight:1.9,margin:0}}>{text}</p>
                   </div>
                 ))}
-
                 <div style={{background:'linear-gradient(135deg,rgba(255,214,160,0.08),rgba(138,90,255,0.06))',border:'1px solid rgba(255,214,160,0.2)',borderRadius:'16px',padding:'18px',marginBottom:'12px',display:'flex',alignItems:'center',gap:'16px'}}>
                   <div style={{width:'56px',height:'56px',borderRadius:'50%',background:'radial-gradient(circle,#FFD6A0,#8B4010)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'20px',flexShrink:0}}>◎</div>
                   <div style={{flex:1}}>
                     <div style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(255,214,160,0.45)',marginBottom:'3px'}}>{star} TODAY'S LUCKY FREQUENCY</div>
-                    <div style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',color:'#FFD6A0',marginBottom:'3px'}}>{reading.frequency}</div>
+                    <div style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',color:'#FFD6A0'}}>{reading.frequency}</div>
                   </div>
                   <button onClick={()=>router.push('/music')} style={{fontStyle:'italic',fontSize:'12px',letterSpacing:'3px',color:'#E8E0FF',background:'rgba(255,214,160,0.15)',border:'1px solid rgba(255,214,160,0.3)',borderRadius:'20px',padding:'6px 14px',cursor:'pointer',flexShrink:0}}>Play</button>
                 </div>
-
                 <div style={{background:'linear-gradient(135deg,rgba(168,232,255,0.06),rgba(60,40,160,0.12))',border:'1px solid rgba(168,232,255,0.15)',borderRadius:'16px',padding:'20px',marginBottom:'12px'}}>
                   <div style={{display:'flex',alignItems:'center',gap:'12px',marginBottom:'12px'}}>
                     <span style={{fontSize:'28px'}}>🌖</span>
@@ -129,12 +188,10 @@ export default function Reading() {
                   </div>
                   <p style={{fontStyle:'italic',fontSize:'14px',color:'rgba(200,230,255,0.7)',lineHeight:1.9,margin:0}}>{reading.ritual}</p>
                 </div>
-
                 <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'16px',padding:'22px',textAlign:'center',marginBottom:'12px'}}>
                   <p style={{fontStyle:'italic',fontSize:'10px',letterSpacing:'4px',color:'rgba(200,168,255,0.35)',marginBottom:'10px'}}>{star} TODAY'S AFFIRMATION {star}</p>
                   <p style={{fontStyle:'italic',fontWeight:300,fontSize:'16px',letterSpacing:'1.5px',color:'rgba(220,210,255,0.75)',lineHeight:1.8,margin:0}}>"{reading.affirmation}"</p>
                 </div>
-
                 <button onClick={fetchReading} style={{width:'100%',padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'13px',fontStyle:'italic',fontSize:'14px',letterSpacing:'4px',color:'rgba(200,168,255,0.5)',cursor:'pointer'}}>
                   {star} Refresh My Reading {star}
                 </button>
@@ -178,36 +235,36 @@ export default function Reading() {
 
         {tab===2 && (
           <div>
-            {[
-              {planet:'Sun',title:'Sun conjunct natal Sun',desc:'Solar Return · peak energy',effect:'Empowering',color:'rgba(100,220,130,0.7)'},
-              {planet:'Venus',title:'Venus trine natal Moon',desc:'Emotional harmony · Love opens',effect:'Flowing',color:'rgba(100,220,130,0.7)'},
-              {planet:'Mercury',title:'Mercury direct in 10th House',desc:'Career clarity returns',effect:'Clearing',color:'rgba(100,220,130,0.7)'},
-              {planet:'Mars',title:'Mars square natal Venus',desc:'Tension in relationships possible',effect:'Challenging',color:'rgba(255,180,60,0.7)'},
-              {planet:'Jupiter',title:'Jupiter sextile natal Mars',desc:'Expansion · New opportunities',effect:'Expanding',color:'rgba(100,220,130,0.7)'},
-              {planet:'Saturn',title:'Saturn opposite natal Moon',desc:'Emotional patterns being tested',effect:'Testing',color:'rgba(255,180,60,0.7)'},
-              {planet:'Pluto',title:'Pluto trine natal Sun',desc:'Deep transformation · Power aligned',effect:'Transforming',color:'rgba(100,220,130,0.7)'},
-            ].map(({planet,title,desc,effect,color})=>(
-              <div key={title} style={{display:'flex',alignItems:'center',gap:'12px',padding:'12px 0',borderBottom:'1px solid rgba(200,168,255,0.06)'}}>
-                <span style={{fontFamily:'sans-serif',fontSize:'11px',width:'50px',color:'rgba(200,168,255,0.5)',flexShrink:0}}>{planet}</span>
-                <div style={{flex:1}}>
-                  <div style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'1.5px',color:'#C8A8FF',marginBottom:'2px'}}>{title}</div>
-                  <div style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.4)',letterSpacing:'1px'}}>{desc}</div>
+            <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',textAlign:'center',marginBottom:'20px'}}>{star} Today's Planetary Transits {star}</p>
+            {transits.map(({planet,title,desc,effect,color,meaning})=>(
+              <div key={title} style={{background:'rgba(255,255,255,0.022)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'16px',padding:'18px',marginBottom:'12px',borderLeft:`3px solid ${color}`}}>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'8px'}}>
+                  <div>
+                    <span style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.7)',marginRight:'8px'}}>{planet}</span>
+                    <span style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'1.5px',color:'#C8A8FF'}}>{title}</span>
+                  </div>
+                  <span style={{fontFamily:'sans-serif',fontSize:'10px',padding:'3px 10px',borderRadius:'10px',background:'rgba(0,0,0,0.2)',border:`1px solid ${color}`,color,flexShrink:0,marginLeft:'8px'}}>{effect}</span>
                 </div>
-                <span style={{fontFamily:'sans-serif',fontSize:'10px',padding:'3px 10px',borderRadius:'10px',background:'rgba(100,220,130,0.08)',border:`1px solid ${color}`,color,flexShrink:0}}>{effect}</span>
+                <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.4)',letterSpacing:'1px',marginBottom:'10px'}}>{desc}</p>
+                <p style={{fontStyle:'italic',fontSize:'13px',color:'rgba(220,210,255,0.7)',lineHeight:1.9,margin:0}}>{meaning}</p>
               </div>
             ))}
           </div>
         )}
 
-        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',padding:'24px 0 0',borderTop:'1px solid rgba(200,168,255,0.07)',marginTop:'16px'}}>
-          {[[star,'Home','/dashboard'],['༄','Breathe','/breathing'],['◎','Music','/music'],['☿','Reading','/reading'],['☽','Journal','/journal']].map(([label,route]) => (
-            <div key={route} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 12px'}}>
-              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:route==='/reading'?'rgba(200,168,255,0.7)':'rgba(200,168,255,0.35)',textTransform:'uppercase'}}>{label}</span>
+      </div>
+
+      <div style={{position:'fixed',bottom:0,left:0,right:0,background:'rgba(6,5,14,0.95)',borderTop:'1px solid rgba(200,168,255,0.12)',padding:'12px 0',zIndex:100}}>
+        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',maxWidth:'680px',margin:'0 auto'}}>
+          {navItems.map(({label,route,emoji}) => (
+            <div key={label} onClick={() => router.push(route)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',padding:'4px 16px',borderRadius:'10px'}}>
+              <span style={{fontSize:'20px'}}>{emoji}</span>
+              <span style={{fontFamily:'sans-serif',fontWeight:200,fontSize:'9px',letterSpacing:'2px',color:route==='/reading'?'rgba(200,168,255,0.9)':'rgba(200,168,255,0.4)',textTransform:'uppercase'}}>{label}</span>
             </div>
           ))}
         </div>
-
       </div>
+
     </main>
   )
 }

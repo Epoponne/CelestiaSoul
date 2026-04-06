@@ -88,5 +88,10 @@ export default function Music() {
 
       </div>
     </main>
-  )
-}
+    c:\Users\14804\Downloads\Tone-396hz.mp3
+    c:\Users\14804\Downloads\Tone-417hz.mp3
+    c:\Users\14804\Downloads\Tone-528hz.mp3
+    c:\Users\14804\Downloads\Tone-741hz.mp3
+    c:\Users\14804\Downloads\Tone-963hz.mp3
+    c:\Users\14804\Downloads\Tone-639hz.mp3
+    c:\Users\14804\Downloads\tone-852hz.mp3
