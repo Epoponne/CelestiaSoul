@@ -123,7 +123,7 @@ export default function Dashboard() {
           {[
             [stats.streak.toString(),'Day Streak'],
             [stats.sessions.toString(),'Sessions'],
-            [stats.hours.toString()+'h','Breathwork'],
+          [stats.hours.toString(),'Breathwork'],
             [stats.cycles.toString(),'Cycles']
           ].map(([val,lbl]) => (
             <div key={lbl} style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'12px',padding:'14px 10px',textAlign:'center'}}>
