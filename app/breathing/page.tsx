@@ -25,7 +25,7 @@ export default function Breathing() {
   const allTechniques = [
     {name:'Solar Fire',icon:'☀️',i:6,h:0,o:6,h2:0,free:true},
     {name:'4-7-8 Lunar',icon:'🌙',i:4,h:7,o:8,h2:0,free:false},
-    {name:'Box Sacred',icon:'◈',i:4,h:4,o:4,h2:4,free:false},
+    {name:'Box Sacred',icon:'⬜',i:4,h:4,o:4,h2:4,free:false},
     {name:'Earth Root',icon:'🌿',i:5,h:2,o:7,h2:0,free:false},
     {name:'Crystal Heart',icon:'💎',i:3,h:3,o:6,h2:3,free:false},
     {name:'Cosmos Deep',icon:'🌌',i:8,h:8,o:8,h2:0,free:false},

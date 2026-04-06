@@ -133,6 +133,12 @@ export default function Dashboard() {
           ))}
         </div>
 
+        {loadingRec && !recommendation && (
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'16px',padding:'22px',textAlign:'center',marginBottom:'22px'}}>
+            <p style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'4px',color:'rgba(200,168,255,0.4)'}}>{star} The stars are aligning your path...</p>
+          </div>
+        )}
+
         {recommendation && (
           <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.1),rgba(255,214,160,0.05))',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'16px',padding:'18px',marginBottom:'22px'}}>
             <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',marginBottom:'12px'}}>{star} TODAY'S COSMIC RECOMMENDATION {star}</p>
@@ -141,21 +147,21 @@ export default function Dashboard() {
                 <p style={{fontFamily:'sans-serif',fontSize:'9px',letterSpacing:'3px',color:'rgba(255,214,160,0.5)',marginBottom:'6px'}}>HEALING FREQUENCY</p>
                 <p style={{fontStyle:'italic',fontSize:'18px',color:'#FFD6A0',marginBottom:'6px'}}>{recommendation.frequency}</p>
                 <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(255,214,160,0.5)',lineHeight:1.6}}>{recommendation.frequency_reason}</p>
-                <button onClick={()=>router.push('/music')} style={{marginTop:'10px',padding:'6px 14px',background:'rgba(255,214,160,0.15)',border:'1px solid rgba(255,214,160,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'#FFD6A0',cursor:'pointer'}}>Play Now</button>
+                <button
+                  onClick={()=>router.push(`/music?freq=${encodeURIComponent(recommendation.frequency)}`)}
+                  style={{marginTop:'10px',padding:'6px 14px',background:'rgba(255,214,160,0.15)',border:'1px solid rgba(255,214,160,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'#FFD6A0',cursor:'pointer'}}
+                >Play Now</button>
               </div>
               <div style={{background:'rgba(138,90,255,0.08)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',padding:'14px'}}>
                 <p style={{fontFamily:'sans-serif',fontSize:'9px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',marginBottom:'6px'}}>BREATHWORK</p>
                 <p style={{fontStyle:'italic',fontSize:'16px',color:'#C8A8FF',marginBottom:'6px'}}>{recommendation.recommended_technique}</p>
                 <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.5)',lineHeight:1.6}}>{recommendation.technique_reason}</p>
-                <button onClick={()=>router.push('/breathing')} style={{marginTop:'10px',padding:'6px 14px',background:'rgba(138,90,255,0.2)',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'#C8A8FF',cursor:'pointer'}}>Begin</button>
+                <button
+                  onClick={()=>router.push('/breathing')}
+                  style={{marginTop:'10px',padding:'6px 14px',background:'rgba(138,90,255,0.2)',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'#C8A8FF',cursor:'pointer'}}
+                >Begin</button>
               </div>
             </div>
-          </div>
-        )}
-
-        {loadingRec && !recommendation && (
-          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'16px',padding:'22px',textAlign:'center',marginBottom:'22px'}}>
-            <p style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'4px',color:'rgba(200,168,255,0.4)'}}>{star} The stars are aligning your path...</p>
           </div>
         )}
 
@@ -163,7 +169,7 @@ export default function Dashboard() {
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px',marginBottom:'22px'}}>
           {[
             {icon:'🌙',title:'Sacred Breathwork',desc:'Choose your technique and healing frequency.',meta:'Begin your session',badge:'Ready',route:'/breathing'},
-            {icon:'🌌',title:'Cosmic Soundbath',desc:'Deep immersion with Solfeggio tones.',meta:recommendation?.frequency || 'Loading...',badge:'New',route:'/music'},
+            {icon:'🌌',title:'Cosmic Soundbath',desc:'Deep immersion with Solfeggio tones.',meta:recommendation?.frequency || 'Loading...',badge:'New',route:`/music?freq=${encodeURIComponent(recommendation?.frequency || '')}`},
             {icon:'⭐',title:'Morning Reading',desc:'Your daily astrological insight has been delivered.',meta:'Tap to read',badge:'Ready',route:'/reading'},
             {icon:'📓',title:'Soul Journal',desc:'Reflect on your cosmic journey today.',meta:'Write your truth',badge:'Ready',route:'/journal'},
           ].map(({icon,title,desc,meta,badge,route}) => (
