@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
+import { getMoonPhase } from '../../lib/moonPhase'
 
 export default function Dashboard() {
   const router = useRouter()
@@ -10,6 +11,7 @@ export default function Dashboard() {
   const [recommendation, setRecommendation] = useState<any>(null)
   const [loadingRec, setLoadingRec] = useState(false)
   const star = '\u2726'
+  const moonData = getMoonPhase()
 
   useEffect(() => {
     const getUser = async () => {
@@ -108,13 +110,13 @@ export default function Dashboard() {
         </div>
 
         <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.12),rgba(40,20,100,0.2))',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'16px',padding:'16px 20px',marginBottom:'22px',display:'flex',alignItems:'center',gap:'16px'}}>
-          <span style={{fontSize:'32px'}}>🌖</span>
+          <span style={{fontSize:'32px'}}>{moonData.emoji}</span>
           <div style={{flex:1}}>
-            <div style={{fontStyle:'italic',fontSize:'16px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'3px'}}>Waning Gibbous Moon</div>
-            <div style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'11px',color:'rgba(200,168,255,0.5)',lineHeight:1.6}}>A powerful time for release and reflection. Let go of what no longer serves your highest path.</div>
+            <div style={{fontStyle:'italic',fontSize:'16px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'3px'}}>{moonData.phase} Moon</div>
+            <div style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'11px',color:'rgba(200,168,255,0.5)',lineHeight:1.6}}>{moonData.description}</div>
           </div>
           <span style={{fontStyle:'italic',fontSize:'12px',color:'rgba(255,214,160,0.6)',textAlign:'right'}}>
-            {recommendation?.frequency || '...'}<br/>
+            {recommendation?.frequency || moonData.frequency}<br/>
             <span style={{fontSize:'9px',opacity:0.6}}>Recommended</span>
           </span>
         </div>
@@ -123,7 +125,7 @@ export default function Dashboard() {
           {[
             [stats.streak.toString(),'Day Streak'],
             [stats.sessions.toString(),'Sessions'],
-          [stats.hours.toString(),'Breathwork'],
+            [stats.hours.toString(),'Breathwork'],
             [stats.cycles.toString(),'Cycles']
           ].map(([val,lbl]) => (
             <div key={lbl} style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'12px',padding:'14px 10px',textAlign:'center'}}>
@@ -147,19 +149,13 @@ export default function Dashboard() {
                 <p style={{fontFamily:'sans-serif',fontSize:'9px',letterSpacing:'3px',color:'rgba(255,214,160,0.5)',marginBottom:'6px'}}>HEALING FREQUENCY</p>
                 <p style={{fontStyle:'italic',fontSize:'18px',color:'#FFD6A0',marginBottom:'6px'}}>{recommendation.frequency}</p>
                 <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(255,214,160,0.5)',lineHeight:1.6}}>{recommendation.frequency_reason}</p>
-                <button
-                  onClick={()=>router.push(`/music?freq=${encodeURIComponent(recommendation.frequency)}`)}
-                  style={{marginTop:'10px',padding:'6px 14px',background:'rgba(255,214,160,0.15)',border:'1px solid rgba(255,214,160,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'#FFD6A0',cursor:'pointer'}}
-                >Play Now</button>
+                <button onClick={()=>router.push(`/music?freq=${encodeURIComponent(recommendation.frequency)}`)} style={{marginTop:'10px',padding:'6px 14px',background:'rgba(255,214,160,0.15)',border:'1px solid rgba(255,214,160,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'#FFD6A0',cursor:'pointer'}}>Play Now</button>
               </div>
               <div style={{background:'rgba(138,90,255,0.08)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',padding:'14px'}}>
                 <p style={{fontFamily:'sans-serif',fontSize:'9px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',marginBottom:'6px'}}>BREATHWORK</p>
                 <p style={{fontStyle:'italic',fontSize:'16px',color:'#C8A8FF',marginBottom:'6px'}}>{recommendation.recommended_technique}</p>
                 <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.5)',lineHeight:1.6}}>{recommendation.technique_reason}</p>
-                <button
-                  onClick={()=>router.push('/breathing')}
-                  style={{marginTop:'10px',padding:'6px 14px',background:'rgba(138,90,255,0.2)',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'#C8A8FF',cursor:'pointer'}}
-                >Begin</button>
+                <button onClick={()=>router.push('/breathing')} style={{marginTop:'10px',padding:'6px 14px',background:'rgba(138,90,255,0.2)',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'#C8A8FF',cursor:'pointer'}}>Begin</button>
               </div>
             </div>
           </div>
@@ -169,8 +165,8 @@ export default function Dashboard() {
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px',marginBottom:'22px'}}>
           {[
             {icon:'🌙',title:'Sacred Breathwork',desc:'Choose your technique and healing frequency.',meta:'Begin your session',badge:'Ready',route:'/breathing'},
-            {icon:'🌌',title:'Cosmic Soundbath',desc:'Deep immersion with Solfeggio tones.',meta:recommendation?.frequency || 'Loading...',badge:'New',route:`/music?freq=${encodeURIComponent(recommendation?.frequency || '')}`},
-            {icon:'⭐',title:'Morning Reading',desc:'Your daily astrological insight has been delivered.',meta:'Tap to read',badge:'Ready',route:'/reading'},
+            {icon:'🌌',title:'Cosmic Soundbath',desc:'Deep immersion with Solfeggio tones.',meta:recommendation?.frequency || moonData.frequency,badge:'New',route:`/music?freq=${encodeURIComponent(recommendation?.frequency || moonData.frequency)}`},
+            {icon:'⭐',title:'Morning Reading',desc:'Your daily astrological insight awaits.',meta:'Tap to read',badge:'Ready',route:'/reading'},
             {icon:'📓',title:'Soul Journal',desc:'Reflect on your cosmic journey today.',meta:'Write your truth',badge:'Ready',route:'/journal'},
           ].map(({icon,title,desc,meta,badge,route}) => (
             <div key={title} onClick={() => router.push(route)} style={{background:'rgba(255,255,255,0.028)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'16px',padding:'20px 16px',cursor:'pointer'}}>
