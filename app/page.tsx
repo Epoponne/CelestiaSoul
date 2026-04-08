@@ -21,7 +21,10 @@ export default function Home() {
         <div style={{position:'absolute',top:0,left:0,width:'100%',height:'100%',background:'linear-gradient(to bottom,rgba(6,5,14,0.3) 0%,rgba(6,5,14,0.6) 60%,rgba(6,5,14,1) 100%)',zIndex:1}}/>
 
         <nav style={{position:'relative',zIndex:2,display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 32px',borderBottom:'1px solid rgba(200,168,255,0.08)'}}>
-          <span style={{fontStyle:'italic',fontSize:'22px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
+          <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
+            <img src="/logo.png" alt="CelestiaSOUL" style={{width:'44px',height:'44px',borderRadius:'50%',objectFit:'cover'}}/>
+            <span style={{fontStyle:'italic',fontSize:'22px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
+          </div>
           <div style={{display:'flex',gap:'16px'}}>
             <button onClick={()=>router.push('/pricing')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.6)',cursor:'pointer',background:'transparent',border:'none',padding:'8px 16px'}}>Pricing</button>
             <button onClick={()=>router.push('/signin')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer',background:'rgba(138,90,255,0.3)',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'20px',padding:'8px 20px'}}>Sign In</button>
@@ -29,6 +32,7 @@ export default function Home() {
         </nav>
 
         <div style={{position:'relative',zIndex:2,flex:1,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center',padding:'80px 24px 120px',maxWidth:'720px',margin:'0 auto'}}>
+          <img src="/logo.png" alt="CelestiaSOUL" style={{width:'120px',height:'120px',borderRadius:'50%',objectFit:'cover',marginBottom:'24px',boxShadow:'0 0 40px rgba(200,168,255,0.3)'}}/>
           <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.7)',marginBottom:'20px'}}>{star} SACRED SPIRITUAL WELLNESS {star}</p>
           <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'72px',letterSpacing:'4px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'16px',lineHeight:1.1}}>CelestiaSOUL</h1>
           <p style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',color:'rgba(200,168,255,0.8)',marginBottom:'24px'}}>sacred breath · cosmic alignment · soul awakening</p>
@@ -99,11 +103,15 @@ export default function Home() {
         </div>
 
         <footer style={{borderTop:'1px solid rgba(200,168,255,0.08)',padding:'40px 32px',textAlign:'center',maxWidth:'800px',margin:'0 auto'}}>
-          <p style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'12px'}}>{star} CelestiaSOUL</p>
+          <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'12px',marginBottom:'12px'}}>
+            <img src="/logo.png" alt="CelestiaSOUL" style={{width:'36px',height:'36px',borderRadius:'50%',objectFit:'cover'}}/>
+            <p style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:0}}>{star} CelestiaSOUL</p>
+          </div>
           <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.3)',letterSpacing:'2px',marginBottom:'16px'}}>sacred breath · cosmic alignment · soul awakening</p>
           <div style={{display:'flex',gap:'24px',justifyContent:'center',marginBottom:'16px',flexWrap:'wrap'}}>
             <span onClick={()=>router.push('/privacy')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Privacy Policy</span>
             <span onClick={()=>router.push('/terms')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Terms of Service</span>
+            <span onClick={()=>router.push('/contact')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Contact</span>
             <span style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',letterSpacing:'1px'}}>support@celestiasoul.com</span>
           </div>
           <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.2)',letterSpacing:'2px'}}>© 2026 CelestiaSOUL · All rights reserved</p>
