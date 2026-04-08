@@ -1,116 +1,105 @@
 'use client'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
-export default function Home() {
+export default function Contact() {
   const router = useRouter()
   const star = '\u2726'
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+  const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async () => {
+    if (!name || !email || !message) return
+    setLoading(true)
+    await new Promise(r => setTimeout(r, 1000))
+    setSent(true)
+    setLoading(false)
+  }
 
   return (
-    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif',overflowX:'hidden'}}>
+    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
+      <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 60px'}}>
 
-      <div style={{position:'relative',minHeight:'100vh',display:'flex',flexDirection:'column'}}>
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          style={{position:'absolute',top:0,left:0,width:'100%',height:'100%',objectFit:'cover',opacity:0.35,zIndex:0}}
-        >
-          <source src="/hero-bg.mp4" type="video/mp4"/>
-        </video>
-        <div style={{position:'absolute',top:0,left:0,width:'100%',height:'100%',background:'linear-gradient(to bottom,rgba(6,5,14,0.3) 0%,rgba(6,5,14,0.6) 60%,rgba(6,5,14,1) 100%)',zIndex:1}}/>
-
-        <nav style={{position:'relative',zIndex:2,display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 32px',borderBottom:'1px solid rgba(200,168,255,0.08)'}}>
-          <span style={{fontStyle:'italic',fontSize:'22px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
-          <div style={{display:'flex',gap:'16px'}}>
-            <button onClick={()=>router.push('/pricing')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.6)',cursor:'pointer',background:'transparent',border:'none',padding:'8px 16px'}}>Pricing</button>
-            <button onClick={()=>router.push('/signin')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer',background:'rgba(138,90,255,0.3)',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'20px',padding:'8px 20px'}}>Sign In</button>
+        <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
+          <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+            <img src="/logo.png" alt="CelestiaSOUL" style={{width:'38px',height:'38px',borderRadius:'50%',objectFit:'cover'}}/>
+            <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
           </div>
+          <button onClick={()=>router.push('/')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Home</button>
         </nav>
 
-        <div style={{position:'relative',zIndex:2,flex:1,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center',padding:'80px 24px 120px',maxWidth:'720px',margin:'0 auto'}}>
-          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.7)',marginBottom:'20px'}}>{star} SACRED SPIRITUAL WELLNESS {star}</p>
-          <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'72px',letterSpacing:'4px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'16px',lineHeight:1.1}}>CelestiaSOUL</h1>
-          <p style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',color:'rgba(200,168,255,0.8)',marginBottom:'24px'}}>sacred breath · cosmic alignment · soul awakening</p>
-          <p style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'16px',color:'rgba(220,210,255,0.7)',lineHeight:1.9,maxWidth:'520px',margin:'0 auto 48px'}}>
-            Your personalized cosmic sanctuary. Receive AI-powered astrology readings, sacred breathwork, healing Solfeggio frequencies and moon rituals — all crafted by the stars, just for you.
-          </p>
-          <div style={{display:'flex',gap:'14px',justifyContent:'center',flexWrap:'wrap',marginBottom:'16px'}}>
-            <button onClick={()=>router.push('/signin')} style={{fontStyle:'italic',fontSize:'16px',letterSpacing:'4px',color:'#E8E0FF',cursor:'pointer',background:'linear-gradient(135deg,rgba(138,90,255,0.6),rgba(100,60,200,0.5))',border:'1px solid rgba(200,168,255,0.45)',borderRadius:'30px',padding:'16px 40px'}}>Begin My Journey {star}</button>
-            <button onClick={()=>router.push('/pricing')} style={{fontStyle:'italic',fontSize:'16px',letterSpacing:'4px',color:'rgba(200,168,255,0.7)',cursor:'pointer',background:'rgba(6,5,14,0.5)',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'30px',padding:'16px 40px'}}>View Pricing</button>
-          </div>
-          <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.4)',letterSpacing:'2px'}}>3-day free trial · No credit card required to start</p>
+        <div style={{textAlign:'center',marginBottom:'40px'}}>
+          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>{star} WE ARE HERE FOR YOU {star}</p>
+          <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'40px',letterSpacing:'4px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:'0 0 12px'}}>Contact Us</h1>
+          <p style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.45)',letterSpacing:'2px'}}>We respond to all messages within 48 hours</p>
         </div>
-      </div>
 
-      <div style={{background:'#06050E',padding:'80px 32px'}}>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'rgba(200,168,255,0.08)',maxWidth:'1000px',margin:'0 auto',borderRadius:'16px',overflow:'hidden',marginBottom:'80px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'12px',marginBottom:'32px'}}>
           {[
-            {icon:'🌙',title:'AI Astrology',desc:'Personalized daily readings based on your natal birth chart'},
-            {icon:'☀️',title:'Sacred Breath',desc:'6 breathwork techniques with healing Solfeggio frequencies'},
-            {icon:'🎵',title:'Sound Healing',desc:'7 frequencies from 396 Hz to 963 Hz for deep healing'},
-            {icon:'📓',title:'Moon Rituals',desc:'Journal and rituals aligned with each lunar cycle'},
+            {icon:'✉️',title:'Email Us',desc:'support@celestiasoul.com'},
+            {icon:'🌙',title:'Response Time',desc:'Within 48 hours'},
+            {icon:'⭐',title:'App Support',desc:'Technical help & billing'},
           ].map(({icon,title,desc})=>(
-            <div key={title} style={{background:'#06050E',padding:'40px 24px',textAlign:'center'}}>
-              <span style={{fontSize:'36px',display:'block',marginBottom:'16px'}}>{icon}</span>
-              <div style={{fontStyle:'italic',fontSize:'18px',letterSpacing:'2px',color:'#C8A8FF',marginBottom:'10px'}}>{title}</div>
-              <div style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'13px',color:'rgba(200,168,255,0.45)',lineHeight:1.8}}>{desc}</div>
+            <div key={title} style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'16px',padding:'20px',textAlign:'center'}}>
+              <span style={{fontSize:'24px',display:'block',marginBottom:'8px'}}>{icon}</span>
+              <div style={{fontStyle:'italic',fontSize:'13px',color:'#C8A8FF',marginBottom:'4px'}}>{title}</div>
+              <div style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.4)',letterSpacing:'1px'}}>{desc}</div>
             </div>
           ))}
         </div>
 
-        <div style={{maxWidth:'800px',margin:'0 auto 80px',textAlign:'center'}}>
-          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'16px'}}>{star} OUR MISSION {star}</p>
-          <h2 style={{fontStyle:'italic',fontWeight:300,fontSize:'42px',letterSpacing:'4px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'24px'}}>Where Science Meets the Sacred</h2>
-          <p style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'15px',color:'rgba(220,210,255,0.65)',lineHeight:2,maxWidth:'600px',margin:'0 auto 24px'}}>
-            CelestiaSOUL was born from a deep belief that every soul deserves personalized cosmic guidance. We combine ancient astrological wisdom with modern AI technology to deliver readings, breathwork, and healing frequencies uniquely tailored to your natal birth chart.
-          </p>
-          <p style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'15px',color:'rgba(220,210,255,0.65)',lineHeight:2,maxWidth:'600px',margin:'0 auto'}}>
-            Our mission is simple — to help you align with the cosmos, breathe with intention, and awaken to your highest soul purpose. Every feature is designed with love, backed by ancient wisdom, and powered by sacred technology.
-          </p>
-        </div>
+        {!sent ? (
+          <div style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'20px',padding:'32px'}}>
+            <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'4px',color:'rgba(200,168,255,0.4)',marginBottom:'24px'}}>{star} SEND US A MESSAGE</p>
+            <div style={{marginBottom:'16px'}}>
+              <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>YOUR NAME</label>
+              <input type="text" placeholder="Your full name..." value={name} onChange={e=>setName(e.target.value)} style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif'}}/>
+            </div>
+            <div style={{marginBottom:'16px'}}>
+              <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>YOUR EMAIL</label>
+              <input type="email" placeholder="your@email.com" value={email} onChange={e=>setEmail(e.target.value)} style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif'}}/>
+            </div>
+            <div style={{marginBottom:'16px'}}>
+              <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>SUBJECT</label>
+              <select value={subject} onChange={e=>setSubject(e.target.value)} style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif'}}>
+                <option value="" style={{background:'#06050E'}}>Select a topic...</option>
+                <option value="technical" style={{background:'#06050E'}}>Technical Support</option>
+                <option value="billing" style={{background:'#06050E'}}>Billing & Subscription</option>
+                <option value="reading" style={{background:'#06050E'}}>My Astrology Reading</option>
+                <option value="feature" style={{background:'#06050E'}}>Feature Request</option>
+                <option value="other" style={{background:'#06050E'}}>Other</option>
+              </select>
+            </div>
+            <div style={{marginBottom:'24px'}}>
+              <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>YOUR MESSAGE</label>
+              <textarea placeholder="How can we help your soul today?..." value={message} onChange={e=>setMessage(e.target.value)} rows={6} style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif',resize:'none',lineHeight:1.8}}/>
+            </div>
+            <button onClick={handleSubmit} disabled={loading} style={{width:'100%',padding:'15px',background:'linear-gradient(135deg,rgba(138,90,255,0.4),rgba(100,60,200,0.3))',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'12px',fontStyle:'italic',fontSize:'16px',letterSpacing:'4px',color:'#E8E0FF',cursor:'pointer'}}>
+              {loading ? 'Sending...' : `Send Message ${star}`}
+            </button>
+          </div>
+        ) : (
+          <div style={{background:'linear-gradient(135deg,rgba(100,220,130,0.1),rgba(138,90,255,0.1))',border:'1px solid rgba(100,220,130,0.25)',borderRadius:'20px',padding:'48px',textAlign:'center'}}>
+            <span style={{fontSize:'48px',display:'block',marginBottom:'16px'}}>🌙</span>
+            <h2 style={{fontStyle:'italic',fontWeight:300,fontSize:'28px',letterSpacing:'4px',color:'rgba(100,220,130,0.8)',marginBottom:'12px'}}>Message Received {star}</h2>
+            <p style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.55)',lineHeight:1.9,marginBottom:'24px'}}>Thank you for reaching out, beloved soul. We will respond within 48 hours at {email}.</p>
+            <button onClick={()=>router.push('/')} style={{padding:'12px 32px',background:'rgba(138,90,255,0.3)',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'20px',fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer'}}>Return Home</button>
+          </div>
+        )}
 
-        <div style={{maxWidth:'900px',margin:'0 auto 80px'}}>
-          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',textAlign:'center',marginBottom:'40px'}}>{star} WHAT SOULS ARE SAYING {star}</p>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'20px'}}>
-            {[
-              {quote:'The AI readings are incredibly accurate. I look forward to them every morning. CelestiaSOUL has completely changed my spiritual practice.',name:'Sarah M.',sign:'Scorpio Rising',stars:'★★★★★'},
-              {quote:'The breathing exercises combined with the healing frequencies have transformed my meditation. I feel so aligned every day.',name:'Luna K.',sign:'Pisces Sun',stars:'★★★★★'},
-              {quote:'I never felt so connected to the cosmos. CelestiaSOUL is my daily sacred ritual. The personalized readings blow my mind every time.',name:'Maya R.',sign:'Cancer Moon',stars:'★★★★★'},
-            ].map(({quote,name,sign,stars})=>(
-              <div key={name} style={{background:'rgba(255,255,255,0.028)',border:'1px solid rgba(200,168,255,0.12)',borderRadius:'20px',padding:'28px'}}>
-                <p style={{fontFamily:'sans-serif',fontSize:'14px',color:'rgba(255,214,160,0.8)',marginBottom:'16px',letterSpacing:'1px'}}>{stars}</p>
-                <p style={{fontStyle:'italic',fontSize:'14px',color:'rgba(220,210,255,0.75)',lineHeight:1.9,marginBottom:'20px'}}>"{quote}"</p>
-                <div style={{borderTop:'1px solid rgba(200,168,255,0.08)',paddingTop:'16px'}}>
-                  <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'#C8A8FF',marginBottom:'3px'}}>{name}</p>
-                  <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.4)'}}>{sign}</p>
-                </div>
-              </div>
-            ))}
+        <div style={{textAlign:'center',marginTop:'40px',padding:'24px',borderTop:'1px solid rgba(200,168,255,0.08)'}}>
+          <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.3)',letterSpacing:'2px',marginBottom:'12px'}}>© 2026 CelestiaSOUL</p>
+          <div style={{display:'flex',gap:'20px',justifyContent:'center'}}>
+            <span onClick={()=>router.push('/privacy')} style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.35)',cursor:'pointer',textDecoration:'underline'}}>Privacy Policy</span>
+            <span onClick={()=>router.push('/terms')} style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.35)',cursor:'pointer',textDecoration:'underline'}}>Terms of Service</span>
           </div>
         </div>
 
-        <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.12),rgba(40,20,100,0.2))',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'24px',maxWidth:'800px',margin:'0 auto 80px',padding:'70px 40px',textAlign:'center'}}>
-          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'16px'}}>{star} BEGIN YOUR JOURNEY {star}</p>
-          <h2 style={{fontStyle:'italic',fontWeight:300,fontSize:'48px',letterSpacing:'4px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'16px'}}>Your Soul Is Ready</h2>
-          <p style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'15px',color:'rgba(220,210,255,0.6)',lineHeight:1.9,maxWidth:'440px',margin:'0 auto 36px'}}>Join thousands of souls awakening to their cosmic purpose. Start your 3-day free trial today.</p>
-          <button onClick={()=>router.push('/signin')} style={{fontStyle:'italic',fontSize:'18px',letterSpacing:'4px',color:'#E8E0FF',cursor:'pointer',background:'linear-gradient(135deg,rgba(138,90,255,0.5),rgba(100,60,200,0.4))',border:'1px solid rgba(200,168,255,0.45)',borderRadius:'30px',padding:'18px 56px',marginBottom:'16px',display:'block',margin:'0 auto 16px'}}>{star} Start Free Trial {star}</button>
-          <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.3)',letterSpacing:'2px'}}>$10/month after trial · Cancel anytime</p>
-        </div>
-
-        <footer style={{borderTop:'1px solid rgba(200,168,255,0.08)',padding:'40px 32px',textAlign:'center',maxWidth:'800px',margin:'0 auto'}}>
-          <p style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'12px'}}>{star} CelestiaSOUL</p>
-          <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.3)',letterSpacing:'2px',marginBottom:'16px'}}>sacred breath · cosmic alignment · soul awakening</p>
-          <div style={{display:'flex',gap:'24px',justifyContent:'center',marginBottom:'16px',flexWrap:'wrap'}}>
-            <span onClick={()=>router.push('/privacy')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Privacy Policy</span>
-            <span onClick={()=>router.push('/terms')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Terms of Service</span>
-            <span onClick={()=>router.push('/contact')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Contact</span>
-            <span style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',letterSpacing:'1px'}}>support@celestiasoul.com</span>
-          </div>
-          <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.2)',letterSpacing:'2px'}}>© 2026 CelestiaSOUL · All rights reserved</p>
-        </footer>
       </div>
-
     </main>
   )
 }

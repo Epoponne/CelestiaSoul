@@ -158,22 +158,23 @@ export default function Breathing() {
       <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
-          <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
+          <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+            <img src="/logo.png" alt="CelestiaSOUL" style={{width:'38px',height:'38px',borderRadius:'50%',objectFit:'cover'}}/>
+            <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
+          </div>
           <button onClick={()=>router.push('/dashboard')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Dashboard</button>
         </nav>
 
         <div style={{textAlign:'center',marginBottom:'24px'}}>
           <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>{star} SACRED BREATH {star}</p>
-          <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'40px',letterSpacing:'6px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:0}}>CelestiaSOUL</h1>
+          <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'40px',letterSpacing:'6px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:0}}>Breathwork</h1>
         </div>
 
         <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',textAlign:'center',marginBottom:'12px'}}>{star} Choose Your Technique {star}</p>
         <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'9px',marginBottom:'24px'}}>
           {allTechniques.map((tc,i)=>(
             <div key={tc.name} onClick={()=>handleTechClick(i)} style={{background:tech===i?'rgba(138,90,255,0.15)':'rgba(255,255,255,0.03)',border:`1px solid ${tech===i?'rgba(200,168,255,0.45)':'rgba(200,168,255,0.1)'}`,borderRadius:'13px',padding:'13px 8px',textAlign:'center',cursor:'pointer',position:'relative',opacity:(!tc.free && !isPaid)?0.5:1}}>
-              {!tc.free && !isPaid && (
-                <div style={{position:'absolute',top:'6px',right:'6px',fontSize:'10px'}}>🔒</div>
-              )}
+              {!tc.free && !isPaid && <div style={{position:'absolute',top:'6px',right:'6px',fontSize:'10px'}}>🔒</div>}
               <span style={{fontSize:'20px',display:'block',marginBottom:'5px'}}>{iconMap[tc.icon]}</span>
               <div style={{fontStyle:'italic',fontSize:'12px',color:'#C8A8FF',marginBottom:'3px'}}>{tc.name}</div>
               <div style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(180,160,220,0.45)'}}>{tc.i}·{tc.h||'-'}·{tc.o}{tc.h2?`·${tc.h2}`:''}</div>

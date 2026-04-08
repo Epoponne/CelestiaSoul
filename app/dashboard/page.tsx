@@ -32,7 +32,6 @@ export default function Dashboard() {
       .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
-
     if (data) {
       const sessions = data.length
       const cycles = data.reduce((acc, s) => acc + (s.cycles || 0), 0)
@@ -58,7 +57,6 @@ export default function Dashboard() {
         .select('*')
         .eq('user_id', userId)
         .single()
-
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -71,9 +69,7 @@ export default function Dashboard() {
       })
       const data = await res.json()
       setRecommendation(data)
-    } catch(e) {
-      console.error(e)
-    }
+    } catch(e) { console.error(e) }
     setLoadingRec(false)
   }
 
@@ -95,7 +91,10 @@ export default function Dashboard() {
       <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
-          <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
+          <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+            <img src="/logo.png" alt="CelestiaSOUL" style={{width:'38px',height:'38px',borderRadius:'50%',objectFit:'cover'}}/>
+            <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
+          </div>
           <div style={{display:'flex',gap:'8px'}}>
             <button onClick={()=>router.push('/profile')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Profile</button>
             <button onClick={signOut} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Sign Out</button>

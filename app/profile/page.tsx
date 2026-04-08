@@ -21,19 +21,9 @@ export default function Profile() {
       setUser(user)
       setFullName(user.user_metadata?.full_name || '')
       setEmail(user.email || '')
-
-      const { data: chart } = await supabase
-        .from('birth_charts')
-        .select('*')
-        .eq('user_id', user.id)
-        .single()
+      const { data: chart } = await supabase.from('birth_charts').select('*').eq('user_id', user.id).single()
       if (chart) setBirthChart(chart)
-
-      const { data: sub } = await supabase
-        .from('subscriptions')
-        .select('*')
-        .eq('user_id', user.id)
-        .single()
+      const { data: sub } = await supabase.from('subscriptions').select('*').eq('user_id', user.id).single()
       if (sub) setSubscription(sub)
     }
     loadProfile()
@@ -41,13 +31,8 @@ export default function Profile() {
 
   const saveProfile = async () => {
     setLoading(true)
-    const { error } = await supabase.auth.updateUser({
-      data: { full_name: fullName }
-    })
-    if (!error) {
-      setSaved(true)
-      setTimeout(() => setSaved(false), 3000)
-    }
+    const { error } = await supabase.auth.updateUser({ data: { full_name: fullName } })
+    if (!error) { setSaved(true); setTimeout(() => setSaved(false), 3000) }
     setLoading(false)
   }
 
@@ -69,18 +54,21 @@ export default function Profile() {
       <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
-          <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{star} CelestiaSOUL</span>
+          <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+            <img src="/logo.png" alt="CelestiaSOUL" style={{width:'38px',height:'38px',borderRadius:'50%',objectFit:'cover'}}/>
+            <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
+          </div>
           <button onClick={()=>router.push('/dashboard')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Dashboard</button>
         </nav>
 
         <div style={{textAlign:'center',marginBottom:'32px'}}>
           <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>{star} YOUR SACRED PROFILE {star}</p>
-          <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'40px',letterSpacing:'6px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:0}}>CelestiaSOUL</h1>
+          <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'40px',letterSpacing:'6px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:0}}>My Profile</h1>
         </div>
 
         <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.12),rgba(40,20,100,0.2))',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'28px',marginBottom:'22px',textAlign:'center'}}>
           <div style={{width:'80px',height:'80px',borderRadius:'50%',background:'radial-gradient(circle,#C8A8FF,#3A1580)',margin:'0 auto 16px',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'32px'}}>
-            {fullName ? fullName.charAt(0).toUpperCase() : '✦'}
+            {fullName ? fullName.charAt(0).toUpperCase() : star}
           </div>
           <div style={{fontStyle:'italic',fontSize:'24px',letterSpacing:'4px',color:'#E8E0FF',marginBottom:'4px'}}>{fullName || 'Soul Seeker'}</div>
           <div style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.5)',letterSpacing:'2px'}}>{email}</div>
@@ -95,22 +83,11 @@ export default function Profile() {
           <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'4px',color:'rgba(200,168,255,0.4)',marginBottom:'20px'}}>{star} ACCOUNT DETAILS</p>
           <div style={{marginBottom:'16px'}}>
             <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>YOUR NAME</label>
-            <input
-              type="text"
-              value={fullName}
-              onChange={e=>setFullName(e.target.value)}
-              placeholder="Your full name..."
-              style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif'}}
-            />
+            <input type="text" value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Your full name..." style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif'}}/>
           </div>
           <div style={{marginBottom:'20px'}}>
             <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>EMAIL</label>
-            <input
-              type="email"
-              value={email}
-              disabled
-              style={{width:'100%',background:'rgba(138,90,255,0.03)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'10px',padding:'12px 16px',color:'rgba(200,168,255,0.4)',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif',cursor:'not-allowed'}}
-            />
+            <input type="email" value={email} disabled style={{width:'100%',background:'rgba(138,90,255,0.03)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'10px',padding:'12px 16px',color:'rgba(200,168,255,0.4)',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif',cursor:'not-allowed'}}/>
             <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.3)',marginTop:'4px',letterSpacing:'1px'}}>Email cannot be changed</p>
           </div>
           {saved && (
@@ -175,15 +152,9 @@ export default function Profile() {
         <div style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'16px',padding:'24px',marginBottom:'22px'}}>
           <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'4px',color:'rgba(200,168,255,0.4)',marginBottom:'20px'}}>{star} ACCOUNT ACTIONS</p>
           <div style={{display:'flex',flexDirection:'column',gap:'10px'}}>
-            <button onClick={()=>router.push('/privacy')} style={{padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',cursor:'pointer',textAlign:'left'}}>
-              Privacy Policy
-            </button>
-            <button onClick={()=>router.push('/terms')} style={{padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',cursor:'pointer',textAlign:'left'}}>
-              Terms of Service
-            </button>
-            <button onClick={signOut} style={{padding:'12px',background:'rgba(255,80,80,0.08)',border:'1px solid rgba(255,80,80,0.2)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(255,120,120,0.7)',cursor:'pointer',textAlign:'left'}}>
-              Sign Out
-            </button>
+            <button onClick={()=>router.push('/privacy')} style={{padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',cursor:'pointer',textAlign:'left'}}>Privacy Policy</button>
+            <button onClick={()=>router.push('/terms')} style={{padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',cursor:'pointer',textAlign:'left'}}>Terms of Service</button>
+            <button onClick={signOut} style={{padding:'12px',background:'rgba(255,80,80,0.08)',border:'1px solid rgba(255,80,80,0.2)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(255,120,120,0.7)',cursor:'pointer',textAlign:'left'}}>Sign Out</button>
           </div>
         </div>
 
