@@ -32,9 +32,8 @@ export default function Dashboard() {
 
   const registerServiceWorker = async () => {
     if ('serviceWorker' in navigator) {
-      try {
-        await navigator.serviceWorker.register('/sw.js')
-      } catch(e) { console.log('SW error:', e) }
+      try { await navigator.serviceWorker.register('/sw.js') }
+      catch(e) { console.log('SW error:', e) }
     }
   }
 
@@ -128,6 +127,17 @@ export default function Dashboard() {
     {label:'Music', route:'/music', emoji:'🎵'},
     {label:'Reading', route:'/reading', emoji:'🔮'},
     {label:'Journal', route:'/journal', emoji:'📓'},
+  ]
+
+  const sacredTools = [
+    {icon:'🃏',title:'Daily Tarot',desc:'Draw your card for cosmic guidance',badge:'Paid',route:'/tarot'},
+    {icon:'💫',title:'Affirmations',desc:'AI-powered daily affirmations',badge:'Free',route:'/affirmations'},
+    {icon:'💑',title:'Compatibility',desc:'Zodiac love compatibility',badge:'Paid',route:'/compatibility'},
+    {icon:'🔵',title:'Birth Chart',desc:'Your natal chart wheel',badge:'Paid',route:'/birthchart-wheel'},
+    {icon:'🧘',title:'Meditation',desc:'Sacred meditation timer',badge:'Paid',route:'/meditation'},
+    {icon:'💎',title:'Crystals',desc:'Crystal healing guide',badge:'Free',route:'/crystals'},
+    {icon:'🌈',title:'Chakras',desc:'Chakra alignment guide',badge:'Paid',route:'/chakras'},
+    {icon:'⬡',title:'Sacred Geometry',desc:'Sacred geometry wisdom',badge:'Free',route:'/geometry'},
   ]
 
   return (
@@ -236,6 +246,18 @@ export default function Dashboard() {
               <div style={{fontStyle:'italic',fontSize:'15px',letterSpacing:'2px',color:'#C8A8FF',marginBottom:'5px'}}>{title}</div>
               <div style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'11px',color:'rgba(200,168,255,0.45)',lineHeight:1.7,marginBottom:'8px'}}>{desc}</div>
               <div style={{fontStyle:'italic',fontSize:'11px',color:'rgba(255,214,160,0.5)'}}>{meta}</div>
+            </div>
+          ))}
+        </div>
+
+        <span style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',display:'block',marginBottom:'12px'}}>{star} Sacred Tools {star}</span>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'10px',marginBottom:'22px'}}>
+          {sacredTools.map(({icon,title,desc,badge,route})=>(
+            <div key={title} onClick={()=>router.push(route)} style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'14px',padding:'14px 10px',textAlign:'center',cursor:'pointer',position:'relative'}}>
+              <span style={{position:'absolute',top:'6px',right:'6px',fontFamily:'sans-serif',fontSize:'8px',letterSpacing:'1px',padding:'2px 6px',borderRadius:'8px',background:badge==='Free'?'rgba(100,220,130,0.15)':'rgba(255,214,160,0.1)',color:badge==='Free'?'rgba(100,220,130,0.7)':'rgba(255,214,160,0.6)'}}>{badge}</span>
+              <span style={{fontSize:'24px',display:'block',marginBottom:'6px'}}>{icon}</span>
+              <div style={{fontStyle:'italic',fontSize:'11px',color:'#C8A8FF',marginBottom:'3px'}}>{title}</div>
+              <div style={{fontFamily:'sans-serif',fontSize:'9px',color:'rgba(200,168,255,0.4)',lineHeight:1.5}}>{desc}</div>
             </div>
           ))}
         </div>
