@@ -11,7 +11,7 @@ export default function Terms() {
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
           <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
-            <img src="/logo.png" alt="CelestiaSOUL" style={{width:'38px',height:'38px',borderRadius:'50%',objectFit:'cover'}}/>
+            <img src="/logo.png" alt="CelestiaSOUL" style={{width:'56px',height:'56px',borderRadius:'50%',objectFit:'cover',boxShadow:'0 0 16px rgba(200,168,255,0.5)',border:'1px solid rgba(200,168,255,0.25)'}}/>
             <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
           </div>
           <button onClick={()=>router.push('/')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Home</button>
