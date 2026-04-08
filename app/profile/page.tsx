@@ -13,6 +13,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(false)
   const [saved, setSaved] = useState(false)
   const [subscription, setSubscription] = useState<any>(null)
+  const [portalLoading, setPortalLoading] = useState(false)
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -34,6 +35,26 @@ export default function Profile() {
     const { error } = await supabase.auth.updateUser({ data: { full_name: fullName } })
     if (!error) { setSaved(true); setTimeout(() => setSaved(false), 3000) }
     setLoading(false)
+  }
+
+  const manageSubscription = async () => {
+    if (!subscription?.stripe_customer_id) {
+      router.push('/pricing')
+      return
+    }
+    setPortalLoading(true)
+    try {
+      const res = await fetch('/api/portal', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ customerId: subscription.stripe_customer_id })
+      })
+      const data = await res.json()
+      if (data.url) window.location.href = data.url
+    } catch(e) {
+      console.error(e)
+    }
+    setPortalLoading(false)
   }
 
   const signOut = async () => {
@@ -137,7 +158,11 @@ export default function Profile() {
                 </div>
                 <div style={{padding:'6px 14px',background:'rgba(100,220,130,0.1)',border:'1px solid rgba(100,220,130,0.3)',borderRadius:'20px',fontFamily:'sans-serif',fontSize:'11px',color:'rgba(100,220,130,0.8)'}}>Active</div>
               </div>
-              <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.35)',letterSpacing:'1px'}}>To manage or cancel your subscription, visit your Stripe customer portal.</p>
+              <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.35)',letterSpacing:'1px',marginBottom:'16px'}}>Manage your subscription, update payment method, or cancel anytime.</p>
+              <button onClick={manageSubscription} disabled={portalLoading} style={{width:'100%',padding:'13px',background:'linear-gradient(135deg,rgba(138,90,255,0.2),rgba(100,60,200,0.1))',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'12px',fontStyle:'italic',fontSize:'15px',letterSpacing:'4px',color:'#C8A8FF',cursor:'pointer',marginBottom:'10px'}}>
+                {portalLoading ? 'Loading...' : `Manage Subscription ${star}`}
+              </button>
+              <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.25)',textAlign:'center',letterSpacing:'1px'}}>You can cancel anytime · No penalties</p>
             </div>
           ) : (
             <div>
@@ -154,6 +179,7 @@ export default function Profile() {
           <div style={{display:'flex',flexDirection:'column',gap:'10px'}}>
             <button onClick={()=>router.push('/privacy')} style={{padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',cursor:'pointer',textAlign:'left'}}>Privacy Policy</button>
             <button onClick={()=>router.push('/terms')} style={{padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',cursor:'pointer',textAlign:'left'}}>Terms of Service</button>
+            <button onClick={()=>router.push('/contact')} style={{padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(200,168,255,0.5)',cursor:'pointer',textAlign:'left'}}>Contact Support</button>
             <button onClick={signOut} style={{padding:'12px',background:'rgba(255,80,80,0.08)',border:'1px solid rgba(255,80,80,0.2)',borderRadius:'12px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'rgba(255,120,120,0.7)',cursor:'pointer',textAlign:'left'}}>Sign Out</button>
           </div>
         </div>
