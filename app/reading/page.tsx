@@ -7,7 +7,6 @@ import { useSubscription } from '../../lib/useSubscription'
 export default function Reading() {
   const router = useRouter()
   const star = '\u2726'
-  const lock = '\uD83D\uDD12'
   const { isPaid, loading: subLoading } = useSubscription()
   const [tab, setTab] = useState(0)
   const [reading, setReading] = useState<any>(null)
@@ -101,7 +100,7 @@ export default function Reading() {
 
         <div style={{display:'flex',marginBottom:'24px',background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'14px',padding:'4px'}}>
           {tabs.map((t,i)=>(
-            <div key={t.label} onClick={()=>handleTabClick(i)} style={{flex:1,fontStyle:'italic',fontSize:'12px',letterSpacing:'2px',color:tab===i?'#E8E0FF':'rgba(200,168,255,0.4)',cursor:'pointer',padding:'9px 4px',borderRadius:'10px',textAlign:'center',background:tab===i?'rgba(138,90,255,0.22)':'transparent',border:tab===i?'1px solid rgba(200,168,255,0.3)':'1px solid transparent',position:'relative',opacity:(!t.free && !isPaid && !subLoading)?0.7:1}}>
+            <div key={t.label} onClick={()=>handleTabClick(i)} style={{flex:1,fontStyle:'italic',fontSize:'12px',letterSpacing:'2px',color:tab===i?'#E8E0FF':'rgba(200,168,255,0.4)',cursor:'pointer',padding:'9px 4px',borderRadius:'10px',textAlign:'center',background:tab===i?'rgba(138,90,255,0.22)':'transparent',border:tab===i?'1px solid rgba(200,168,255,0.3)':'1px solid transparent',opacity:(!t.free && !isPaid && !subLoading)?0.7:1}}>
               {!t.free && !isPaid && !subLoading && <span style={{marginRight:'4px',fontSize:'10px'}}>🔒</span>}
               {t.label}
             </div>
@@ -129,6 +128,7 @@ export default function Reading() {
                     <div style={{fontFamily:'sans-serif',fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.4)'}}>{rising} Rising</div>
                   </div>
                 </div>
+
                 {[
                   {icon:'♀',title:'Love & Relationships',text:reading.love,color:'rgba(255,130,180,0.5)'},
                   {icon:'☿',title:'Career & Purpose',text:reading.career,color:'rgba(255,214,160,0.5)'},
@@ -142,14 +142,20 @@ export default function Reading() {
                     <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'1px',color:'rgba(220,210,255,0.7)',lineHeight:1.9,margin:0}}>{text}</p>
                   </div>
                 ))}
+
                 <div style={{background:'linear-gradient(135deg,rgba(255,214,160,0.08),rgba(138,90,255,0.06))',border:'1px solid rgba(255,214,160,0.2)',borderRadius:'16px',padding:'18px',marginBottom:'12px',display:'flex',alignItems:'center',gap:'16px'}}>
                   <div style={{width:'56px',height:'56px',borderRadius:'50%',background:'radial-gradient(circle,#FFD6A0,#8B4010)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'20px',flexShrink:0}}>◎</div>
                   <div style={{flex:1}}>
                     <div style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(255,214,160,0.45)',marginBottom:'3px'}}>{star} TODAY'S LUCKY FREQUENCY</div>
                     <div style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',color:'#FFD6A0'}}>{reading.frequency}</div>
                   </div>
-                  <button onClick={()=>router.push('/music')} style={{fontStyle:'italic',fontSize:'12px',letterSpacing:'3px',color:'#E8E0FF',background:'rgba(255,214,160,0.15)',border:'1px solid rgba(255,214,160,0.3)',borderRadius:'20px',padding:'6px 14px',cursor:'pointer',flexShrink:0}}>Play</button>
+                  <button
+                    onClick={()=>router.push(`/music?freq=${encodeURIComponent(reading.frequency)}`)}
+                    style={{fontStyle:'italic',fontSize:'12px',letterSpacing:'3px',color:'#E8E0FF',background:'rgba(255,214,160,0.15)',border:'1px solid rgba(255,214,160,0.3)',borderRadius:'20px',padding:'6px 14px',cursor:'pointer',flexShrink:0}}>
+                    Play
+                  </button>
                 </div>
+
                 <div style={{background:'linear-gradient(135deg,rgba(168,232,255,0.06),rgba(60,40,160,0.12))',border:'1px solid rgba(168,232,255,0.15)',borderRadius:'16px',padding:'20px',marginBottom:'12px'}}>
                   <div style={{display:'flex',alignItems:'center',gap:'12px',marginBottom:'12px'}}>
                     <span style={{fontSize:'28px'}}>🌖</span>
@@ -157,10 +163,12 @@ export default function Reading() {
                   </div>
                   <p style={{fontStyle:'italic',fontSize:'14px',color:'rgba(200,230,255,0.7)',lineHeight:1.9,margin:0}}>{reading.ritual}</p>
                 </div>
+
                 <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'16px',padding:'22px',textAlign:'center',marginBottom:'12px'}}>
                   <p style={{fontStyle:'italic',fontSize:'10px',letterSpacing:'4px',color:'rgba(200,168,255,0.35)',marginBottom:'10px'}}>{star} TODAY'S AFFIRMATION {star}</p>
                   <p style={{fontStyle:'italic',fontWeight:300,fontSize:'16px',letterSpacing:'1.5px',color:'rgba(220,210,255,0.75)',lineHeight:1.8,margin:0}}>"{reading.affirmation}"</p>
                 </div>
+
                 <button onClick={fetchReading} style={{width:'100%',padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'13px',fontStyle:'italic',fontSize:'14px',letterSpacing:'4px',color:'rgba(200,168,255,0.5)',cursor:'pointer'}}>
                   {star} Refresh My Reading {star}
                 </button>
