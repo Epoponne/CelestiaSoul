@@ -11,12 +11,30 @@ export default function Contact() {
   const [message, setMessage] = useState('')
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async () => {
-    if (!name || !email || !message) return
+    if (!name || !email || !message) {
+      setError('Please fill in your name, email and message!')
+      return
+    }
     setLoading(true)
-    await new Promise(r => setTimeout(r, 1000))
-    setSent(true)
+    setError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, email, subject, message })
+      })
+      const data = await res.json()
+      if (data.success) {
+        setSent(true)
+      } else {
+        setError('Something went wrong. Please try again!')
+      }
+    } catch(e) {
+      setError('Something went wrong. Please email us directly!')
+    }
     setLoading(false)
   }
 
@@ -67,17 +85,22 @@ export default function Contact() {
               <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>SUBJECT</label>
               <select value={subject} onChange={e=>setSubject(e.target.value)} style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif'}}>
                 <option value="" style={{background:'#06050E'}}>Select a topic...</option>
-                <option value="technical" style={{background:'#06050E'}}>Technical Support</option>
-                <option value="billing" style={{background:'#06050E'}}>Billing & Subscription</option>
-                <option value="reading" style={{background:'#06050E'}}>My Astrology Reading</option>
-                <option value="feature" style={{background:'#06050E'}}>Feature Request</option>
-                <option value="other" style={{background:'#06050E'}}>Other</option>
+                <option value="Technical Support" style={{background:'#06050E'}}>Technical Support</option>
+                <option value="Billing & Subscription" style={{background:'#06050E'}}>Billing & Subscription</option>
+                <option value="My Astrology Reading" style={{background:'#06050E'}}>My Astrology Reading</option>
+                <option value="Feature Request" style={{background:'#06050E'}}>Feature Request</option>
+                <option value="Other" style={{background:'#06050E'}}>Other</option>
               </select>
             </div>
             <div style={{marginBottom:'24px'}}>
               <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>YOUR MESSAGE</label>
               <textarea placeholder="How can we help your soul today?..." value={message} onChange={e=>setMessage(e.target.value)} rows={6} style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif',resize:'none',lineHeight:1.8}}/>
             </div>
+            {error && (
+              <div style={{background:'rgba(255,80,80,0.08)',border:'1px solid rgba(255,80,80,0.2)',borderRadius:'10px',padding:'10px',marginBottom:'14px',textAlign:'center',fontStyle:'italic',fontSize:'13px',color:'rgba(255,120,120,0.8)'}}>
+                {error}
+              </div>
+            )}
             <button onClick={handleSubmit} disabled={loading} style={{width:'100%',padding:'15px',background:'linear-gradient(135deg,rgba(138,90,255,0.4),rgba(100,60,200,0.3))',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'12px',fontStyle:'italic',fontSize:'16px',letterSpacing:'4px',color:'#E8E0FF',cursor:'pointer'}}>
               {loading ? 'Sending...' : `Send Message ${star}`}
             </button>
