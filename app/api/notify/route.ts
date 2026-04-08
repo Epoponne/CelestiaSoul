@@ -7,6 +7,8 @@ export async function POST(request: NextRequest) {
   try {
     const { email, name, moonPhase, frequency } = await request.json()
 
+    const unsubscribeUrl = `https://celestiasoul.com/unsubscribe?email=${encodeURIComponent(email)}`
+
     const { data, error } = await resend.emails.send({
       from: 'CelestiaSOUL <hello@celestiasoul.com>',
       to: email,
@@ -22,7 +24,7 @@ export async function POST(request: NextRequest) {
           <div style="max-width:560px;margin:0 auto;padding:40px 24px;">
 
             <div style="text-align:center;margin-bottom:32px;">
-              <p style="font-style:italic;font-size:24px;letter-spacing:4px;background:linear-gradient(135deg,#DDD0FF,#FFE8C8);-webkit-background-clip:text;color:#C8A8FF;margin:0 0 8px;">✦ CelestiaSOUL</p>
+              <p style="font-style:italic;font-size:24px;letter-spacing:4px;color:#C8A8FF;margin:0 0 8px;">✦ CelestiaSOUL</p>
               <p style="font-family:sans-serif;font-size:11px;letter-spacing:4px;color:rgba(200,168,255,0.4);margin:0;">SACRED DAILY READING</p>
             </div>
 
@@ -53,10 +55,26 @@ export async function POST(request: NextRequest) {
               <p style="font-style:italic;font-size:15px;color:rgba(220,210,255,0.7);line-height:1.8;margin:0;">"I am aligned with the cosmos. My soul is awakening to its highest purpose today."</p>
             </div>
 
+            <div style="background:linear-gradient(135deg,rgba(138,90,255,0.08),rgba(40,20,100,0.15));border:1px solid rgba(200,168,255,0.1);border-radius:16px;padding:20px;margin-bottom:24px;">
+              <p style="font-family:sans-serif;font-size:11px;letter-spacing:3px;color:rgba(200,168,255,0.4);margin:0 0 12px;">✦ QUICK LINKS</p>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <a href="https://celestiasoul.com/reading" style="font-style:italic;font-size:13px;color:#C8A8FF;text-decoration:none;padding:8px 16px;border:1px solid rgba(200,168,255,0.2);border-radius:20px;">🔮 My Reading</a>
+                <a href="https://celestiasoul.com/breathing" style="font-style:italic;font-size:13px;color:#C8A8FF;text-decoration:none;padding:8px 16px;border:1px solid rgba(200,168,255,0.2);border-radius:20px;">☀️ Breathwork</a>
+                <a href="https://celestiasoul.com/music" style="font-style:italic;font-size:13px;color:#C8A8FF;text-decoration:none;padding:8px 16px;border:1px solid rgba(200,168,255,0.2);border-radius:20px;">🎵 Music</a>
+                <a href="https://celestiasoul.com/journal" style="font-style:italic;font-size:13px;color:#C8A8FF;text-decoration:none;padding:8px 16px;border:1px solid rgba(200,168,255,0.2);border-radius:20px;">📓 Journal</a>
+              </div>
+            </div>
+
             <div style="text-align:center;padding-top:24px;border-top:1px solid rgba(200,168,255,0.08);">
               <p style="font-style:italic;font-size:16px;letter-spacing:3px;color:#C8A8FF;margin:0 0 8px;">✦ CelestiaSOUL</p>
-              <p style="font-family:sans-serif;font-size:11px;color:rgba(200,168,255,0.3);letter-spacing:2px;margin:0 0 12px;">sacred breath · cosmic alignment · soul awakening</p>
-              <p style="font-family:sans-serif;font-size:10px;color:rgba(200,168,255,0.2);margin:0;">© 2026 CelestiaSOUL · <a href="https://celestiasoul.com/privacy" style="color:rgba(200,168,255,0.3);">Privacy Policy</a> · <a href="https://celestiasoul.com" style="color:rgba(200,168,255,0.3);">Unsubscribe</a></p>
+              <p style="font-family:sans-serif;font-size:11px;color:rgba(200,168,255,0.3);letter-spacing:2px;margin:0 0 16px;">sacred breath · cosmic alignment · soul awakening</p>
+              <p style="font-family:sans-serif;font-size:11px;color:rgba(200,168,255,0.3);margin:0 0 8px;">You are receiving this email because you signed up for CelestiaSOUL.</p>
+              <p style="font-family:sans-serif;font-size:10px;color:rgba(200,168,255,0.2);margin:0;">
+                © 2026 CelestiaSOUL · 
+                <a href="https://celestiasoul.com/privacy" style="color:rgba(200,168,255,0.3);text-decoration:none;">Privacy Policy</a> · 
+                <a href="https://celestiasoul.com/terms" style="color:rgba(200,168,255,0.3);text-decoration:none;">Terms</a> · 
+                <a href="${unsubscribeUrl}" style="color:rgba(200,168,255,0.3);text-decoration:underline;">Unsubscribe</a>
+              </p>
             </div>
 
           </div>
