@@ -11,6 +11,7 @@ export default function Dashboard() {
   const [recommendation, setRecommendation] = useState<any>(null)
   const [loadingRec, setLoadingRec] = useState(false)
   const [notifAsked, setNotifAsked] = useState(false)
+  const [notifSupported, setNotifSupported] = useState(false)
   const star = '\u2726'
   const moonData = getMoonPhase()
 
@@ -23,7 +24,7 @@ export default function Dashboard() {
         loadStats(user.id)
         loadRecommendation(user.id)
         registerServiceWorker()
-        checkNotificationPermission()
+        setNotifSupported('Notification' in window && Notification.permission === 'default')
       }
     }
     getUser()
@@ -37,23 +38,19 @@ export default function Dashboard() {
     }
   }
 
-  const checkNotificationPermission = () => {
-    if ('Notification' in window && Notification.permission === 'default') {
-      setNotifAsked(false)
-    }
-  }
-
   const requestNotifications = async () => {
     if ('Notification' in window) {
       const permission = await Notification.requestPermission()
       if (permission === 'granted') {
         setNotifAsked(true)
+        setNotifSupported(false)
         new Notification('CelestiaSOUL ✦', {
           body: 'You will now receive your daily cosmic reading reminders!',
           icon: '/icon-192.png'
         })
       } else {
         setNotifAsked(true)
+        setNotifSupported(false)
       }
     }
   }
@@ -70,6 +67,7 @@ export default function Dashboard() {
         frequency: recommendation?.frequency || moonData.frequency,
       })
     })
+    alert('Daily reading email sent! Check your inbox.')
   }
 
   const loadStats = async (userId: string) => {
@@ -157,14 +155,14 @@ export default function Dashboard() {
           </span>
         </div>
 
-        {!notifAsked && typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default' && (
+        {notifSupported && !notifAsked && (
           <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.15),rgba(255,214,160,0.05))',border:'1px solid rgba(200,168,255,0.25)',borderRadius:'16px',padding:'16px 20px',marginBottom:'22px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:'12px'}}>
             <div>
               <p style={{fontStyle:'italic',fontSize:'14px',color:'#C8A8FF',marginBottom:'4px'}}>{star} Daily Reading Reminders</p>
               <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.5)'}}>Get notified when your cosmic reading is ready each morning!</p>
             </div>
             <div style={{display:'flex',gap:'8px',flexShrink:0}}>
-              <button onClick={()=>setNotifAsked(true)} style={{padding:'6px 12px',background:'transparent',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',color:'rgba(200,168,255,0.4)',cursor:'pointer'}}>Later</button>
+              <button onClick={()=>{setNotifAsked(true);setNotifSupported(false)}} style={{padding:'6px 12px',background:'transparent',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',color:'rgba(200,168,255,0.4)',cursor:'pointer'}}>Later</button>
               <button onClick={requestNotifications} style={{padding:'6px 12px',background:'rgba(138,90,255,0.3)',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',color:'#E8E0FF',cursor:'pointer'}}>Allow {star}</button>
             </div>
           </div>
