@@ -61,25 +61,28 @@ export default function Tarot() {
   ]
 
   return (
-    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
-      <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
+    <main style={{minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif',position:'relative'}}>
+      <div style={{position:'fixed',top:0,left:0,width:'100%',height:'100%',backgroundImage:'url(/tarot-bg.jpg)',backgroundSize:'cover',backgroundPosition:'center',backgroundRepeat:'no-repeat',zIndex:0}}/>
+      <div style={{position:'fixed',top:0,left:0,width:'100%',height:'100%',background:'rgba(6,5,14,0.75)',zIndex:1}}/>
+
+      <div style={{position:'relative',zIndex:2,maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
           <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
             <img src="/logo.png" alt="CelestiaSOUL" style={{width:'56px',height:'56px',borderRadius:'50%',objectFit:'cover',boxShadow:'0 0 16px rgba(200,168,255,0.5)',border:'1px solid rgba(200,168,255,0.25)'}}/>
             <span style={{fontStyle:'italic',fontSize:'20px',letterSpacing:'3px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>CelestiaSOUL</span>
           </div>
-          <button onClick={()=>router.push('/dashboard')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'transparent'}}>Dashboard</button>
+          <button onClick={()=>router.push('/dashboard')} style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'6px 16px',background:'rgba(6,5,14,0.5)'}}>Dashboard</button>
         </nav>
 
         <div style={{textAlign:'center',marginBottom:'32px'}}>
-          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>{star} SACRED TAROT {star}</p>
+          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.7)',marginBottom:'8px',textShadow:'0 0 20px rgba(200,168,255,0.5)'}}>{star} SACRED TAROT {star}</p>
           <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'40px',letterSpacing:'6px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:'0 0 12px'}}>Daily Tarot Pull</h1>
-          <p style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.45)',letterSpacing:'2px'}}>Draw your card for today's cosmic guidance</p>
+          <p style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.6)',letterSpacing:'2px'}}>Draw your card for today's cosmic guidance</p>
         </div>
 
         {!isPaid && !subLoading && (
-          <div onClick={()=>router.push('/pricing')} style={{background:'linear-gradient(135deg,rgba(138,90,255,0.2),rgba(255,214,160,0.08))',border:'1px solid rgba(200,168,255,0.25)',borderRadius:'16px',padding:'20px',marginBottom:'24px',textAlign:'center',cursor:'pointer'}}>
+          <div onClick={()=>router.push('/pricing')} style={{background:'rgba(6,5,14,0.7)',border:'1px solid rgba(200,168,255,0.25)',borderRadius:'16px',padding:'20px',marginBottom:'24px',textAlign:'center',cursor:'pointer',backdropFilter:'blur(10px)'}}>
             <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'4px'}}>{star} Sacred Members Only {star}</p>
             <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(255,214,160,0.6)',letterSpacing:'2px'}}>Unlock daily tarot readings · $10/month · 3-day free trial</p>
           </div>
@@ -88,20 +91,20 @@ export default function Tarot() {
         <div style={{display:'flex',justifyContent:'center',marginBottom:'32px'}}>
           <div style={{width:'200px',height:'340px',position:'relative',cursor:'pointer'}} onClick={drawCard}>
             {!card && !loading && (
-              <div style={{width:'100%',height:'100%',background:'linear-gradient(135deg,rgba(138,90,255,0.3),rgba(40,20,100,0.5))',border:'2px solid rgba(200,168,255,0.3)',borderRadius:'16px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow:'0 0 30px rgba(138,90,255,0.3)'}}>
+              <div style={{width:'100%',height:'100%',background:'rgba(20,10,60,0.8)',border:'2px solid rgba(200,168,255,0.4)',borderRadius:'16px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow:'0 0 40px rgba(138,90,255,0.5)',backdropFilter:'blur(10px)'}}>
                 <div style={{fontSize:'48px',marginBottom:'16px'}}>🔮</div>
                 <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#C8A8FF',textAlign:'center',padding:'0 16px'}}>Tap to draw your card</p>
                 <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.4)',marginTop:'8px',letterSpacing:'2px'}}>for {new Date().toLocaleDateString('en-US',{month:'long',day:'numeric'})}</p>
               </div>
             )}
             {loading && (
-              <div style={{width:'100%',height:'100%',background:'linear-gradient(135deg,rgba(138,90,255,0.3),rgba(40,20,100,0.5))',border:'2px solid rgba(200,168,255,0.3)',borderRadius:'16px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow:'0 0 40px rgba(138,90,255,0.5)'}}>
-                <div style={{fontSize:'48px',marginBottom:'16px',animation:'spin 1s linear infinite',display:'inline-block'}}>✨</div>
+              <div style={{width:'100%',height:'100%',background:'rgba(20,10,60,0.8)',border:'2px solid rgba(200,168,255,0.4)',borderRadius:'16px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow:'0 0 60px rgba(138,90,255,0.7)',backdropFilter:'blur(10px)'}}>
+                <div style={{fontSize:'48px',marginBottom:'16px',display:'inline-block',animation:'spin 1s linear infinite'}}>✨</div>
                 <p style={{fontStyle:'italic',fontSize:'13px',letterSpacing:'3px',color:'#C8A8FF'}}>The cosmos speaks...</p>
               </div>
             )}
             {card && flipped && (
-              <div style={{width:'100%',height:'100%',background:'linear-gradient(135deg,rgba(138,90,255,0.2),rgba(20,10,60,0.8))',border:'2px solid rgba(200,168,255,0.4)',borderRadius:'16px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow:'0 0 40px rgba(138,90,255,0.4)',transform:card.reversed?'rotate(180deg)':'rotate(0deg)'}}>
+              <div style={{width:'100%',height:'100%',background:'rgba(20,10,60,0.85)',border:'2px solid rgba(200,168,255,0.5)',borderRadius:'16px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow:'0 0 50px rgba(138,90,255,0.6)',backdropFilter:'blur(10px)',transform:card.reversed?'rotate(180deg)':'rotate(0deg)'}}>
                 <div style={{fontSize:'64px',marginBottom:'12px',transform:card.reversed?'rotate(180deg)':'rotate(0deg)'}}>{card.emoji}</div>
                 <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'2px',color:'rgba(200,168,255,0.6)',transform:card.reversed?'rotate(180deg)':'rotate(0deg)',textAlign:'center'}}>{card.number}</p>
                 <p style={{fontStyle:'italic',fontSize:'16px',letterSpacing:'2px',color:'#E8E0FF',transform:card.reversed?'rotate(180deg)':'rotate(0deg)',textAlign:'center',padding:'0 12px'}}>{card.name}</p>
@@ -113,7 +116,7 @@ export default function Tarot() {
 
         {card && flipped && (
           <div>
-            <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.12),rgba(40,20,100,0.2))',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'24px',marginBottom:'16px'}}>
+            <div style={{background:'rgba(6,5,14,0.8)',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'24px',marginBottom:'16px',backdropFilter:'blur(10px)'}}>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'16px'}}>
                 <div>
                   <p style={{fontStyle:'italic',fontSize:'24px',letterSpacing:'3px',color:'#E8E0FF',marginBottom:'4px'}}>{card.name}</p>
@@ -126,17 +129,17 @@ export default function Tarot() {
                 <p style={{fontStyle:'italic',fontSize:'13px',color:'rgba(200,168,255,0.6)'}}>{card.keywords}</p>
               </div>
               <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.4)',marginBottom:'10px'}}>{card.reversed?'REVERSED MEANING':'YOUR MESSAGE TODAY'}</p>
-              <p style={{fontStyle:'italic',fontSize:'15px',color:'rgba(220,210,255,0.8)',lineHeight:1.9,margin:0}}>{card.reversed?card.reversed_meaning||card.reversed:card.upright}</p>
+              <p style={{fontStyle:'italic',fontSize:'15px',color:'rgba(220,210,255,0.8)',lineHeight:1.9,margin:0}}>{card.reversed?card.reversed:card.upright}</p>
             </div>
 
-            <button onClick={drawCard} style={{width:'100%',padding:'14px',background:'transparent',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'12px',fontStyle:'italic',fontSize:'14px',letterSpacing:'4px',color:'rgba(200,168,255,0.5)',cursor:'pointer',marginBottom:'16px'}}>
+            <button onClick={drawCard} style={{width:'100%',padding:'14px',background:'rgba(6,5,14,0.7)',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'12px',fontStyle:'italic',fontSize:'14px',letterSpacing:'4px',color:'rgba(200,168,255,0.5)',cursor:'pointer',marginBottom:'16px',backdropFilter:'blur(10px)'}}>
               {star} Draw Another Card {star}
             </button>
 
-            <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'14px',padding:'16px',textAlign:'center'}}>
+            <div style={{background:'rgba(6,5,14,0.7)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'14px',padding:'16px',textAlign:'center',backdropFilter:'blur(10px)'}}>
               <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.35)',marginBottom:'8px'}}>{star} Journal This Reading {star}</p>
               <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',marginBottom:'12px'}}>Reflect on your card's message in your soul journal</p>
-              <button onClick={()=>router.push('/journal')} style={{padding:'8px 24px',background:'rgba(138,90,255,0.2)',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'#C8A8FF',cursor:'pointer'}}>Open Journal</button>
+              <button onClick={()=>router.push('/journal')} style={{padding:'8px 24px',background:'rgba(138,90,255,0.3)',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'13px',letterSpacing:'2px',color:'#C8A8FF',cursor:'pointer'}}>Open Journal</button>
             </div>
           </div>
         )}
