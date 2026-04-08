@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [stats, setStats] = useState({sessions:0, cycles:0, streak:0, hours:0})
   const [recommendation, setRecommendation] = useState<any>(null)
   const [loadingRec, setLoadingRec] = useState(false)
+  const [notifAsked, setNotifAsked] = useState(false)
   const star = '\u2726'
   const moonData = getMoonPhase()
 
@@ -21,10 +22,55 @@ export default function Dashboard() {
         setUser(user)
         loadStats(user.id)
         loadRecommendation(user.id)
+        registerServiceWorker()
+        checkNotificationPermission()
       }
     }
     getUser()
   }, [])
+
+  const registerServiceWorker = async () => {
+    if ('serviceWorker' in navigator) {
+      try {
+        await navigator.serviceWorker.register('/sw.js')
+      } catch(e) { console.log('SW error:', e) }
+    }
+  }
+
+  const checkNotificationPermission = () => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      setNotifAsked(false)
+    }
+  }
+
+  const requestNotifications = async () => {
+    if ('Notification' in window) {
+      const permission = await Notification.requestPermission()
+      if (permission === 'granted') {
+        setNotifAsked(true)
+        new Notification('CelestiaSOUL ✦', {
+          body: 'You will now receive your daily cosmic reading reminders!',
+          icon: '/icon-192.png'
+        })
+      } else {
+        setNotifAsked(true)
+      }
+    }
+  }
+
+  const sendTestEmail = async () => {
+    if (!user) return
+    await fetch('/api/notify', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: user.email,
+        name: user.user_metadata?.full_name || 'Soul Seeker',
+        moonPhase: moonData.phase,
+        frequency: recommendation?.frequency || moonData.frequency,
+      })
+    })
+  }
 
   const loadStats = async (userId: string) => {
     const { data } = await supabase
@@ -111,6 +157,19 @@ export default function Dashboard() {
           </span>
         </div>
 
+        {!notifAsked && typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default' && (
+          <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.15),rgba(255,214,160,0.05))',border:'1px solid rgba(200,168,255,0.25)',borderRadius:'16px',padding:'16px 20px',marginBottom:'22px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:'12px'}}>
+            <div>
+              <p style={{fontStyle:'italic',fontSize:'14px',color:'#C8A8FF',marginBottom:'4px'}}>{star} Daily Reading Reminders</p>
+              <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.5)'}}>Get notified when your cosmic reading is ready each morning!</p>
+            </div>
+            <div style={{display:'flex',gap:'8px',flexShrink:0}}>
+              <button onClick={()=>setNotifAsked(true)} style={{padding:'6px 12px',background:'transparent',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',color:'rgba(200,168,255,0.4)',cursor:'pointer'}}>Later</button>
+              <button onClick={requestNotifications} style={{padding:'6px 12px',background:'rgba(138,90,255,0.3)',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'20px',fontStyle:'italic',fontSize:'11px',color:'#E8E0FF',cursor:'pointer'}}>Allow {star}</button>
+            </div>
+          </div>
+        )}
+
         <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.12),rgba(40,20,100,0.2))',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'16px',padding:'16px 20px',marginBottom:'22px',display:'flex',alignItems:'center',gap:'16px'}}>
           <span style={{fontSize:'32px'}}>{moonData.emoji}</span>
           <div style={{flex:1}}>
@@ -188,6 +247,14 @@ export default function Dashboard() {
           <div style={{fontStyle:'italic',fontWeight:300,fontSize:'16px',letterSpacing:'1.5px',color:'rgba(220,210,255,0.75)',lineHeight:1.8}}>
             {recommendation?.affirmation || '"I am aligned with the cosmos. My soul is awakening to its highest purpose."'}
           </div>
+        </div>
+
+        <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'16px',padding:'18px 20px',marginBottom:'22px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+          <div>
+            <p style={{fontStyle:'italic',fontSize:'13px',color:'#C8A8FF',marginBottom:'4px'}}>{star} Daily Reading Email</p>
+            <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.4)'}}>Send today's cosmic reading to your inbox</p>
+          </div>
+          <button onClick={sendTestEmail} style={{padding:'8px 16px',background:'rgba(138,90,255,0.2)',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',fontStyle:'italic',fontSize:'12px',letterSpacing:'2px',color:'#C8A8FF',cursor:'pointer',flexShrink:0}}>Send {star}</button>
         </div>
 
         <div onClick={()=>router.push('/pricing')} style={{background:'linear-gradient(135deg,rgba(138,90,255,0.2),rgba(255,214,160,0.08))',border:'1px solid rgba(200,168,255,0.25)',borderRadius:'16px',padding:'16px 20px',marginBottom:'22px',textAlign:'center',cursor:'pointer'}}>
