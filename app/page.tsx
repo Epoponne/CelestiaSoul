@@ -112,10 +112,12 @@ export default function Home() {
             <span onClick={()=>router.push('/privacy')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Privacy Policy</span>
             <span onClick={()=>router.push('/terms')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Terms of Service</span>
             <span onClick={()=>router.push('/contact')} style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>Contact</span>
+            <a href="https://www.youtube.com/channel/UCEx67Esh2D7oOZAhdwK0FJA" target="_blank" rel="noopener noreferrer" style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',cursor:'pointer',letterSpacing:'1px',textDecoration:'underline'}}>YouTube</a>
             <span style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)',letterSpacing:'1px'}}>support@celestiasoul.com</span>
           </div>
           <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.2)',letterSpacing:'2px'}}>© 2026 CelestiaSOUL · All rights reserved</p>
         </footer>
+
       </div>
 
     </main>
