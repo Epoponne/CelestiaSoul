@@ -36,7 +36,7 @@ export default function Home() {
           <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'clamp(30px,7vw,68px)',letterSpacing:'2px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'12px',lineHeight:1.1,width:'100%',boxSizing:'border-box',padding:'0 10px'}}>CelestiaSOUL</h1>
           <p style={{fontStyle:'italic',fontSize:'clamp(11px,3vw,18px)',letterSpacing:'1px',color:'rgba(255,255,255,0.9)',marginBottom:'16px',padding:'0 10px'}}>sacred breath · cosmic alignment · soul awakening</p>
           <p style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'clamp(11px,3vw,15px)',color:'rgba(255,240,255,0.8)',lineHeight:1.8,maxWidth:'520px',margin:'0 auto 28px',padding:'0 16px',boxSizing:'border-box'}}>
-            Your personalized cosmic sanctuary. Receive AI-powered astrology readings, sacred breathwork, healing Solfeggio frequencies and moon rituals — all crafted by the stars, just for you.
+            Your personalized cosmic sanctuary. Receive Sacred astrology readings, sacred breathwork, healing Solfeggio frequencies and moon rituals — all crafted by the stars, just for you.
           </p>
           <div style={{display:'flex',gap:'10px',justifyContent:'center',flexWrap:'wrap',marginBottom:'16px',width:'100%',padding:'0 20px',boxSizing:'border-box'}}>
             <button onClick={()=>router.push('/signin')} style={{fontStyle:'italic',fontSize:'clamp(12px,3.5vw,16px)',letterSpacing:'2px',color:'#E8E0FF',cursor:'pointer',background:'linear-gradient(135deg,rgba(138,90,255,0.7),rgba(100,60,200,0.6))',border:'1px solid rgba(200,168,255,0.5)',borderRadius:'30px',padding:'12px 24px',boxShadow:'0 0 20px rgba(138,90,255,0.3)'}}>Begin My Journey {star}</button>
@@ -50,7 +50,7 @@ export default function Home() {
 
         <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'1px',background:'rgba(200,168,255,0.08)',maxWidth:'800px',margin:'0 auto',borderRadius:'16px',overflow:'hidden',marginBottom:'40px'}}>
           {[
-            {icon:'🌙',title:'AI Astrology',desc:'Personalized daily readings based on your natal birth chart'},
+            {icon:'🌙',title:'Cosmic astrology',desc:'Personalized daily readings based on your natal birth chart'},
             {icon:'☀️',title:'Sacred Breath',desc:'6 breathwork techniques with healing Solfeggio frequencies'},
             {icon:'🎵',title:'Sound Healing',desc:'7 frequencies from 396 Hz to 963 Hz for deep healing'},
             {icon:'📓',title:'Moon Rituals',desc:'Journal and rituals aligned with each lunar cycle'},

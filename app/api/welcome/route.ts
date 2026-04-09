@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
             <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(200,168,255,0.12);border-radius:16px;padding:24px;margin-bottom:24px;">
               <p style="font-family:sans-serif;font-size:10px;letter-spacing:4px;color:rgba(200,168,255,0.4);margin:0 0 16px;">✦ WHAT AWAITS YOU</p>
               ${[
-                ['🔮', 'AI Astrology Readings', 'Personalized daily readings based on your natal birth chart'],
+                ['🔮', 'Cosmic astrology Readings', 'Personalized daily readings based on your natal birth chart'],
                 ['☀️', 'Sacred Breathwork', '6 techniques with healing Solfeggio frequencies'],
                 ['🎵', 'Sound Healing', '7 frequencies from 396 Hz to 963 Hz'],
                 ['📓', 'Moon Journal', 'Rituals and reflections aligned with lunar cycles'],
