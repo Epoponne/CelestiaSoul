@@ -45,7 +45,12 @@ function MusicContent() {
   ]
 
   useEffect(() => {
+    const fileParam = searchParams.get('file')
     const freqParam = searchParams.get('freq')
+    if (fileParam) {
+      const found = tracks.findIndex(t => t.file === fileParam)
+      if (found !== -1) { playTrack(found); return }
+    }
     if (freqParam) {
       const hzNum = freqParam.replace(' Hz', '').trim()
       const found = tracks.findIndex(t => t.hz.startsWith(hzNum))
