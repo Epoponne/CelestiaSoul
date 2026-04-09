@@ -13,6 +13,7 @@ export default function Pricing() {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email: '' })
       })
       const data = await res.json()
       if (data.url) window.location.href = data.url
@@ -22,8 +23,33 @@ export default function Pricing() {
     setLoading(false)
   }
 
+  const freeFeatures = [
+    {icon:'🌬️', title:'Solar Fire Breathwork', desc:'Our signature 6-count breathing technique'},
+    {icon:'🎵', title:'396 Hz Sound Healing', desc:'Liberation frequency — free forever'},
+    {icon:'💫', title:'Sacred Affirmations', desc:'Personalized daily affirmations'},
+    {icon:'💎', title:'Crystal Healing Guide', desc:'Full guide to 12 sacred healing crystals'},
+    {icon:'⬡', title:'Sacred Geometry', desc:'8 divine patterns with meditations'},
+    {icon:'🔮', title:'Basic Astrology Reading', desc:'Daily sun sign reading'},
+    {icon:'📓', title:'Moon Journal', desc:'Journal with lunar cycle guidance'},
+  ]
+
+  const paidFeatures = [
+    {icon:'🌙', title:'Full Astrology Readings', desc:'Personalized readings using your full natal chart — sun, moon and rising'},
+    {icon:'☀️', title:'All 6 Breathwork Techniques', desc:'4-7-8 Lunar, Box Sacred, Earth Root, Crystal Heart and Cosmos Deep'},
+    {icon:'🎵', title:'Full Sound Healing Library', desc:'All 15 tracks — 396 Hz to 963 Hz plus combined Hz blends'},
+    {icon:'🃏', title:'Daily Tarot Pull', desc:'Draw from the full Major Arcana with upright and reversed meanings'},
+    {icon:'🌈', title:'Chakra Alignment Guide', desc:'All 7 chakras with healing frequencies and breathwork recommendations'},
+    {icon:'💑', title:'Zodiac Compatibility', desc:'Deep cosmic compatibility readings for any two signs'},
+    {icon:'🔵', title:'Birth Chart Wheel', desc:'Your full natal chart wheel with all planetary placements'},
+    {icon:'🧘', title:'Meditation Timer', desc:'Sacred timer from 5 to 45 minutes with healing frequencies'},
+    {icon:'🌙', title:'Real Moon Phase Daily', desc:'Live lunar cycle with personalized frequency recommendations'},
+    {icon:'📊', title:'Progress Tracking', desc:'Track your streak, sessions, breathwork hours and cycles'},
+    {icon:'✉️', title:'Daily Reading Emails', desc:'Your cosmic reading delivered to your inbox every morning'},
+    {icon:'🔔', title:'Push Notifications', desc:'Daily reminders for your sacred morning practice'},
+  ]
+
   return (
-    <main style={{background:'#0D0B1E ',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
+    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
       <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 60px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
@@ -36,79 +62,81 @@ export default function Pricing() {
 
         <div style={{textAlign:'center',marginBottom:'40px'}}>
           <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'8px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>{star} SACRED ACCESS {star}</p>
-          <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'48px',letterSpacing:'4px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:'0 0 12px'}}>Choose Your Path</h1>
-          <p style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.45)',letterSpacing:'2px'}}>Begin your cosmic journey today</p>
+          <h1 style={{fontStyle:'italic',fontWeight:300,fontSize:'40px',letterSpacing:'4px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',margin:'0 0 12px'}}>Simple Pricing</h1>
+          <p style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.45)',letterSpacing:'2px'}}>Begin free. Unlock everything for $10/month.</p>
         </div>
 
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px',marginBottom:'32px'}}>
-          <div style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'20px',padding:'28px'}}>
-            <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'4px',color:'rgba(200,168,255,0.4)',marginBottom:'12px'}}>FREE</p>
-            <p style={{fontStyle:'italic',fontSize:'32px',color:'#C8A8FF',marginBottom:'4px'}}>$0</p>
-            <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.4)',marginBottom:'20px',letterSpacing:'1px'}}>Forever free</p>
-            {[
-              "Today's AI Reading",
-              '396 Hz Liberation',
-              'Solar Fire Breathwork',
-              'Moon Journal',
-            ].map(f=>(
-              <div key={f} style={{display:'flex',alignItems:'center',gap:'8px',marginBottom:'10px'}}>
-                <span style={{color:'rgba(200,168,255,0.5)',fontSize:'12px'}}>✓</span>
-                <span style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.6)'}}>{f}</span>
-              </div>
-            ))}
-            <button onClick={()=>router.push('/signin')} style={{width:'100%',marginTop:'20px',padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'12px',fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',cursor:'pointer'}}>
-              Get Started
+
+          <div style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.12)',borderRadius:'20px',padding:'24px'}}>
+            <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'4px',color:'rgba(100,220,130,0.6)',marginBottom:'8px'}}>FREE FOREVER</p>
+            <p style={{fontStyle:'italic',fontSize:'28px',color:'#E8E0FF',marginBottom:'4px'}}>$0</p>
+            <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.4)',marginBottom:'20px',letterSpacing:'1px'}}>No credit card needed</p>
+            <div style={{display:'flex',flexDirection:'column',gap:'10px',marginBottom:'24px'}}>
+              {freeFeatures.map(({icon,title,desc})=>(
+                <div key={title} style={{display:'flex',gap:'10px',alignItems:'flex-start'}}>
+                  <span style={{fontSize:'16px',flexShrink:0}}>{icon}</span>
+                  <div>
+                    <div style={{fontStyle:'italic',fontSize:'12px',color:'#C8A8FF',marginBottom:'2px'}}>{title}</div>
+                    <div style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.4)',lineHeight:1.5}}>{desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button onClick={()=>router.push('/signin')} style={{width:'100%',padding:'12px',background:'transparent',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'12px',fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'rgba(200,168,255,0.6)',cursor:'pointer'}}>
+              Start Free {star}
             </button>
           </div>
 
-          <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.15),rgba(40,20,100,0.25))',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',padding:'28px',position:'relative'}}>
-            <div style={{position:'absolute',top:'-12px',left:'50%',transform:'translateX(-50%)',background:'linear-gradient(135deg,#8A5AFF,#C8A8FF)',borderRadius:'20px',padding:'4px 16px',fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'#fff',whiteSpace:'nowrap'}}>MOST POPULAR</div>
-            <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'4px',color:'rgba(255,214,160,0.6)',marginBottom:'12px'}}>SACRED</p>
-            <p style={{fontStyle:'italic',fontSize:'32px',color:'#FFD6A0',marginBottom:'4px'}}>$10</p>
-            <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(255,214,160,0.5)',marginBottom:'20px',letterSpacing:'1px'}}>per month · 3-day free trial</p>
-            {[
-              'Everything in Free',
-              'All 6 Breathwork Techniques',
-              'All 7 Healing Frequencies',
-              'Natal Blueprint Reading',
-              'Planetary Transits',
-              'Combined Hz Tracks',
-              'Priority Support',
-            ].map(f=>(
-              <div key={f} style={{display:'flex',alignItems:'center',gap:'8px',marginBottom:'10px'}}>
-                <span style={{color:'rgba(255,214,160,0.7)',fontSize:'12px'}}>{star}</span>
-                <span style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(220,210,255,0.7)'}}>{f}</span>
-              </div>
-            ))}
-            <button onClick={handleCheckout} disabled={loading} style={{width:'100%',marginTop:'20px',padding:'14px',background:'linear-gradient(135deg,rgba(138,90,255,0.5),rgba(100,60,200,0.4))',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'12px',fontStyle:'italic',fontSize:'15px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer'}}>
+          <div style={{background:'linear-gradient(135deg,rgba(138,90,255,0.15),rgba(40,20,100,0.25))',border:'1px solid rgba(200,168,255,0.3)',borderRadius:'20px',padding:'24px',position:'relative'}}>
+            <div style={{position:'absolute',top:'-12px',left:'50%',transform:'translateX(-50%)',background:'linear-gradient(135deg,#8A5AFF,#6040C0)',borderRadius:'20px',padding:'4px 16px',fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'#E8E0FF',whiteSpace:'nowrap'}}>MOST POPULAR</div>
+            <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'4px',color:'rgba(255,214,160,0.6)',marginBottom:'8px'}}>SACRED ACCESS</p>
+            <div style={{display:'flex',alignItems:'baseline',gap:'4px',marginBottom:'4px'}}>
+              <p style={{fontStyle:'italic',fontSize:'28px',color:'#FFD6A0'}}>$10</p>
+              <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(255,214,160,0.5)'}}>/month</p>
+            </div>
+            <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.4)',marginBottom:'8px',letterSpacing:'1px'}}>after 3-day free trial</p>
+            <div style={{background:'rgba(100,220,130,0.08)',border:'1px solid rgba(100,220,130,0.2)',borderRadius:'8px',padding:'8px',marginBottom:'16px',textAlign:'center'}}>
+              <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(100,220,130,0.7)',letterSpacing:'2px'}}>✦ 3-DAY FREE TRIAL ✦</p>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:'10px',marginBottom:'24px'}}>
+              {paidFeatures.map(({icon,title,desc})=>(
+                <div key={title} style={{display:'flex',gap:'10px',alignItems:'flex-start'}}>
+                  <span style={{fontSize:'16px',flexShrink:0}}>{icon}</span>
+                  <div>
+                    <div style={{fontStyle:'italic',fontSize:'12px',color:'#C8A8FF',marginBottom:'2px'}}>{title}</div>
+                    <div style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.4)',lineHeight:1.5}}>{desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button onClick={handleCheckout} disabled={loading} style={{width:'100%',padding:'13px',background:'linear-gradient(135deg,rgba(138,90,255,0.5),rgba(100,60,200,0.4))',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'12px',fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer'}}>
               {loading ? 'Loading...' : `Start Free Trial ${star}`}
             </button>
-            <p style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.3)',textAlign:'center',marginTop:'10px',letterSpacing:'1px'}}>Cancel anytime · No commitment</p>
           </div>
+
         </div>
 
         <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(200,168,255,0.08)',borderRadius:'16px',padding:'24px',marginBottom:'24px'}}>
-          <p style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.4)',textAlign:'center',marginBottom:'20px'}}>{star} FREQUENTLY ASKED QUESTIONS {star}</p>
-          {[
-            {q:'How does the free trial work?',a:'Your 3-day free trial gives you full Sacred access with no charge. After 3 days, you will be billed $10/month unless you cancel.'},
-            {q:'Can I cancel anytime?',a:'Yes! You can cancel your subscription at any time with no penalties or fees. Your access continues until the end of the billing period.'},
-            {q:'What makes readings personalized?',a:'Our AI uses your natal birth chart — sun sign, moon sign, and rising sign — to generate readings uniquely tailored to your cosmic blueprint.'},
-            {q:'Are the healing frequencies safe?',a:'Yes! Solfeggio frequencies are gentle sound healing tones used for centuries. Always consult a doctor if you have medical concerns.'},
-          ].map(({q,a})=>(
-            <div key={q} style={{marginBottom:'16px',paddingBottom:'16px',borderBottom:'1px solid rgba(200,168,255,0.06)'}}>
-              <p style={{fontStyle:'italic',fontSize:'14px',color:'#C8A8FF',marginBottom:'6px'}}>{q}</p>
-              <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.5)',lineHeight:1.8,margin:0}}>{a}</p>
-            </div>
-          ))}
+          <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',textAlign:'center',marginBottom:'20px'}}>{star} FREQUENTLY ASKED {star}</p>
+          <div style={{display:'flex',flexDirection:'column',gap:'16px'}}>
+            {[
+              {q:'Do I need a credit card for the free trial?',a:'No! You can start your 3-day free trial without entering any payment information. Only upgrade when you are ready.'},
+              {q:'Can I cancel anytime?',a:'Yes absolutely. Cancel anytime with one click from your profile page. No penalties, no questions asked.'},
+              {q:'What happens after my free trial?',a:'After 3 days you will be prompted to subscribe for $10/month to continue accessing all sacred features.'},
+              {q:'Is my birth chart data secure?',a:'Yes. Your personal data is encrypted and stored securely. We never share or sell your information.'},
+            ].map(({q,a})=>(
+              <div key={q} style={{borderBottom:'1px solid rgba(200,168,255,0.06)',paddingBottom:'16px'}}>
+                <p style={{fontStyle:'italic',fontSize:'14px',color:'#C8A8FF',marginBottom:'6px'}}>{q}</p>
+                <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.5)',lineHeight:1.8}}>{a}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div style={{textAlign:'center',padding:'24px',borderTop:'1px solid rgba(200,168,255,0.08)'}}>
-          <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.3)',letterSpacing:'2px',marginBottom:'12px'}}>© 2026 CelestiaSOUL</p>
-          <div style={{display:'flex',gap:'20px',justifyContent:'center'}}>
-            <span onClick={()=>router.push('/privacy')} style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.35)',cursor:'pointer',textDecoration:'underline'}}>Privacy Policy</span>
-            <span onClick={()=>router.push('/terms')} style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.35)',cursor:'pointer',textDecoration:'underline'}}>Terms of Service</span>
-            <span onClick={()=>router.push('/contact')} style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(200,168,255,0.35)',cursor:'pointer',textDecoration:'underline'}}>Contact</span>
-          </div>
+        <div style={{textAlign:'center'}}>
+          <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.3)',letterSpacing:'1px',marginBottom:'8px'}}>Questions? We are here for you.</p>
+          <p style={{fontFamily:'sans-serif',fontSize:'12px',color:'rgba(200,168,255,0.4)'}}>support@celestiasoul.com</p>
         </div>
 
       </div>
