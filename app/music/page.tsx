@@ -70,7 +70,7 @@ function MusicContent() {
     const audio = new Audio(`/${tracks[i].file}`)
     audio.loop = true
     audioRef.current = audio
-    audio.play()
+    audio.play().catch(e => console.log(e))
     setPlaying(i)
   }
 
