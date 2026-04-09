@@ -1,8 +1,8 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { supabase } from '../../../lib/supabase'
-import { useSubscription } from '../../../lib/useSubscription'
+import { supabase } from '../../lib/supabase'
+import { useSubscription } from '../../lib/useSubscription'
 
 export default function BirthChartWheel() {
   const router = useRouter()
@@ -27,18 +27,18 @@ export default function BirthChartWheel() {
   }, [])
 
   const signs = [
-    {name:'Aries',emoji:'♈',color:'#FF6B6B',element:'Fire',quality:'Cardinal',ruling:'Mars'},
-    {name:'Taurus',emoji:'♉',color:'#69DB7C',element:'Earth',quality:'Fixed',ruling:'Venus'},
-    {name:'Gemini',emoji:'♊',color:'#DDD0FF',element:'Air',quality:'Mutable',ruling:'Mercury'},
-    {name:'Cancer',emoji:'♋',color:'#74C0FC',element:'Water',quality:'Cardinal',ruling:'Moon'},
-    {name:'Leo',emoji:'♌',color:'#FFD43B',element:'Fire',quality:'Fixed',ruling:'Sun'},
-    {name:'Virgo',emoji:'♍',color:'#69DB7C',element:'Earth',quality:'Mutable',ruling:'Mercury'},
-    {name:'Libra',emoji:'♎',color:'#F8A8C8',element:'Air',quality:'Cardinal',ruling:'Venus'},
-    {name:'Scorpio',emoji:'♏',color:'#8B5CF6',element:'Water',quality:'Fixed',ruling:'Pluto'},
-    {name:'Sagittarius',emoji:'♐',color:'#FF922B',element:'Fire',quality:'Mutable',ruling:'Jupiter'},
-    {name:'Capricorn',emoji:'♑',color:'#63E6BE',element:'Earth',quality:'Cardinal',ruling:'Saturn'},
-    {name:'Aquarius',emoji:'♒',color:'#74C0FC',element:'Air',quality:'Fixed',ruling:'Uranus'},
-    {name:'Pisces',emoji:'♓',color:'#9775FA',element:'Water',quality:'Mutable',ruling:'Neptune'},
+    {name:'Aries',emoji:'♈',color:'#FF6B6B',element:'Fire',quality:'Cardinal'},
+    {name:'Taurus',emoji:'♉',color:'#69DB7C',element:'Earth',quality:'Fixed'},
+    {name:'Gemini',emoji:'♊',color:'#DDD0FF',element:'Air',quality:'Mutable'},
+    {name:'Cancer',emoji:'♋',color:'#74C0FC',element:'Water',quality:'Cardinal'},
+    {name:'Leo',emoji:'♌',color:'#FFD43B',element:'Fire',quality:'Fixed'},
+    {name:'Virgo',emoji:'♍',color:'#69DB7C',element:'Earth',quality:'Mutable'},
+    {name:'Libra',emoji:'♎',color:'#F8A8C8',element:'Air',quality:'Cardinal'},
+    {name:'Scorpio',emoji:'♏',color:'#8B5CF6',element:'Water',quality:'Fixed'},
+    {name:'Sagittarius',emoji:'♐',color:'#FF922B',element:'Fire',quality:'Mutable'},
+    {name:'Capricorn',emoji:'♑',color:'#63E6BE',element:'Earth',quality:'Cardinal'},
+    {name:'Aquarius',emoji:'♒',color:'#74C0FC',element:'Air',quality:'Fixed'},
+    {name:'Pisces',emoji:'♓',color:'#9775FA',element:'Water',quality:'Mutable'},
   ]
 
   const planets = [
@@ -90,7 +90,7 @@ export default function BirthChartWheel() {
         {!loading && !chart && (
           <div style={{background:'rgba(255,255,255,0.025)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'20px',padding:'40px',textAlign:'center',marginBottom:'24px'}}>
             <p style={{fontStyle:'italic',fontSize:'18px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'12px'}}>{star} No Birth Chart Found {star}</p>
-            <p style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.5)',marginBottom:'20px',lineHeight:1.8}}>Complete your birth chart to unlock your cosmic blueprint and personalized readings!</p>
+            <p style={{fontFamily:'sans-serif',fontSize:'13px',color:'rgba(200,168,255,0.5)',marginBottom:'20px',lineHeight:1.8}}>Complete your birth chart to unlock your cosmic blueprint!</p>
             <button onClick={()=>router.push('/birthchart')} style={{padding:'12px 32px',background:'rgba(138,90,255,0.3)',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'20px',fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer'}}>Complete My Chart</button>
           </div>
         )}
@@ -103,15 +103,8 @@ export default function BirthChartWheel() {
                 <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(200,168,255,0.08)" strokeWidth="1"/>
                 <circle cx="200" cy="200" r="110" fill="none" stroke="rgba(200,168,255,0.06)" strokeWidth="1"/>
                 <circle cx="200" cy="200" r="60" fill="rgba(138,90,255,0.05)" stroke="rgba(200,168,255,0.15)" strokeWidth="1"/>
-
                 {signs.map((s, i) => {
                   const angle = (i * 30 - 90) * (Math.PI / 180)
-                  const nextAngle = ((i + 1) * 30 - 90) * (Math.PI / 180)
-                  const r1 = 110, r2 = 190
-                  const x1 = 200 + r1 * Math.cos(angle)
-                  const y1 = 200 + r1 * Math.sin(angle)
-                  const x2 = 200 + r2 * Math.cos(angle)
-                  const y2 = 200 + r2 * Math.sin(angle)
                   const midAngle = ((i * 30 + 15) - 90) * (Math.PI / 180)
                   const tx = 200 + 167 * Math.cos(midAngle)
                   const ty = 200 + 167 * Math.sin(midAngle)
@@ -122,36 +115,29 @@ export default function BirthChartWheel() {
                   return (
                     <g key={s.name}>
                       <line x1={lx1} y1={ly1} x2={lx2} y2={ly2} stroke={`${s.color}40`} strokeWidth="0.5"/>
-                      <text x={tx} y={ty} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill={s.color} style={{fontFamily:'serif'}}>
-                        {s.emoji}
-                      </text>
+                      <text x={tx} y={ty} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill={s.color}>{s.emoji}</text>
                     </g>
                   )
                 })}
-
                 {[
-                  {name:'Sun', sign:chart.sun_sign, emoji:'☀️', r:130, color:'#FFD43B'},
-                  {name:'Moon', sign:chart.moon_sign, emoji:'🌙', r:85, color:'#C8E0FF'},
-                  {name:'Rising', sign:chart.rising_sign, emoji:'⬆️', r:130, color:'#FF82B4'},
-                ].map((p) => {
+                  {sign:chart.sun_sign, emoji:'☀️', r:130, color:'#FFD43B'},
+                  {sign:chart.moon_sign, emoji:'🌙', r:85, color:'#C8E0FF'},
+                  {sign:chart.rising_sign, emoji:'⬆️', r:130, color:'#FF82B4'},
+                ].map((p, idx) => {
                   const signIdx = signs.findIndex(s => s.name === p.sign)
                   if (signIdx === -1) return null
                   const angle = ((signIdx * 30 + 15) - 90) * (Math.PI / 180)
                   const px = 200 + p.r * Math.cos(angle)
                   const py = 200 + p.r * Math.sin(angle)
                   return (
-                    <g key={p.name}>
+                    <g key={idx}>
                       <circle cx={px} cy={py} r="14" fill={`${p.color}25`} stroke={p.color} strokeWidth="1"/>
-                      <text x={px} y={py} textAnchor="middle" dominantBaseline="middle" fontSize="11" fill={p.color}>
-                        {p.emoji}
-                      </text>
+                      <text x={px} y={py} textAnchor="middle" dominantBaseline="middle" fontSize="11" fill={p.color}>{p.emoji}</text>
                     </g>
                   )
                 })}
-
-                <circle cx="200" cy="200" r="40" fill="radial-gradient(circle,rgba(138,90,255,0.3),transparent)" stroke="rgba(200,168,255,0.3)" strokeWidth="1"/>
-                <text x="200" y="195" textAnchor="middle" fontSize="11" fill="#C8A8FF" style={{fontFamily:'Georgia,serif',fontStyle:'italic'}}>Your</text>
-                <text x="200" y="210" textAnchor="middle" fontSize="11" fill="#C8A8FF" style={{fontFamily:'Georgia,serif',fontStyle:'italic'}}>Chart</text>
+                <text x="200" y="195" textAnchor="middle" fontSize="11" fill="#C8A8FF">Your</text>
+                <text x="200" y="210" textAnchor="middle" fontSize="11" fill="#C8A8FF">Chart</text>
               </svg>
             </div>
 
@@ -161,7 +147,7 @@ export default function BirthChartWheel() {
                 {label:'Moon Sign',value:chart.moon_sign,emoji:'🌙',color:'#C8E0FF'},
                 {label:'Rising Sign',value:chart.rising_sign,emoji:'⬆️',color:'#FF82B4'},
               ].map(({label,value,emoji,color})=>(
-                <div key={label} style={{background:`rgba(${color === '#FFD43B' ? '255,212,59' : color === '#C8E0FF' ? '200,224,255' : '255,130,180'},0.1)`,border:`1px solid ${color}40`,borderRadius:'14px',padding:'16px',textAlign:'center'}}>
+                <div key={label} style={{background:'rgba(255,255,255,0.03)',border:`1px solid ${color}40`,borderRadius:'14px',padding:'16px',textAlign:'center'}}>
                   <span style={{fontSize:'24px',display:'block',marginBottom:'6px'}}>{emoji}</span>
                   <div style={{fontFamily:'sans-serif',fontSize:'9px',letterSpacing:'2px',color:'rgba(200,168,255,0.4)',marginBottom:'4px'}}>{label.toUpperCase()}</div>
                   <div style={{fontStyle:'italic',fontSize:'16px',color}}>{value || '—'}</div>
@@ -186,9 +172,7 @@ export default function BirthChartWheel() {
                       </div>
                       <div style={{fontFamily:'sans-serif',fontSize:'10px',color:'rgba(200,168,255,0.4)'}}>{p.meaning}</div>
                     </div>
-                    {signData && (
-                      <span style={{fontSize:'20px',flexShrink:0}}>{signData.emoji}</span>
-                    )}
+                    {signData && <span style={{fontSize:'20px',flexShrink:0}}>{signData.emoji}</span>}
                   </div>
                 )
               })}
