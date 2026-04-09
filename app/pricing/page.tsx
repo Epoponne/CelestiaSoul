@@ -1,19 +1,33 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase } from '../../lib/supabase'
 
 export default function Pricing() {
   const router = useRouter()
   const star = '\u2726'
   const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState<any>(null)
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
+    }
+    getUser()
+  }, [])
 
   const handleCheckout = async () => {
     setLoading(true)
     try {
+      if (!user) {
+        router.push('/signin?redirect=pricing')
+        return
+      }
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ email: '' })
+        body: JSON.stringify({ email: user.email })
       })
       const data = await res.json()
       if (data.url) window.location.href = data.url
@@ -110,7 +124,7 @@ export default function Pricing() {
                 </div>
               ))}
             </div>
-            <button onClick={handleCheckout} disabled={loading} style={{width:'100%',padding:'13px',background:'linear-gradient(135deg,rgba(138,90,255,0.5),rgba(100,60,200,0.4))',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'12px',fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer'}}>
+            <button onClick={handleCheckout} disabled={loading} style={{width:'100%',padding:'13px',background:'linear-gradient(135deg,rgba(138,90,255,0.5),rgba(100,60,200,0.4))',border:'1px solid rgba(200,168,255,0.4)',borderRadius:'12px',fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#E8E0FF',cursor:'pointer',opacity:loading?0.7:1}}>
               {loading ? 'Loading...' : `Start Free Trial ${star}`}
             </button>
           </div>
@@ -121,7 +135,7 @@ export default function Pricing() {
           <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',textAlign:'center',marginBottom:'20px'}}>{star} FREQUENTLY ASKED {star}</p>
           <div style={{display:'flex',flexDirection:'column',gap:'16px'}}>
             {[
-              {q:'What makes readings personalized?',a:'Your readings are based on your natal birth chart — your sun sign, moon sign and rising sign — to generate cosmic guidance uniquely tailored to your blueprint.'},
+              {q:'What makes readings personalized?',a:'Your readings are based on your natal birth chart — your sun sign, moon sign and rising sign — generating cosmic guidance uniquely tailored to your blueprint.'},
               {q:'Do I need a credit card for the free trial?',a:'No! You can start your 3-day free trial without entering any payment information. Only upgrade when you are ready.'},
               {q:'Can I cancel anytime?',a:'Yes absolutely. Cancel anytime with one click from your profile page. No penalties, no questions asked.'},
               {q:'What happens after my free trial?',a:'After 3 days you will be prompted to subscribe for $10/month to continue accessing all sacred features.'},
