@@ -116,7 +116,7 @@ export default function Tarot() {
 
         {card && flipped && (
           <div>
-            <div style={{background:'rgba(6,5,14,0.85)',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'24px',marginBottom:'16px'}}>
+            <div style={{background:'rgba(26,16,64,0.85)',border:'1px solid rgba(200,168,255,0.2)',borderRadius:'20px',padding:'24px',marginBottom:'16px'}}>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'16px'}}>
                 <div>
                   <p style={{fontStyle:'italic',fontSize:'24px',letterSpacing:'3px',color:'#E8E0FF',marginBottom:'4px'}}>{card.name}</p>

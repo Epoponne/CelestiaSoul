@@ -160,7 +160,7 @@ export default function Compatibility() {
 
             {result && !loading && (
               <div style={{marginBottom:'20px'}}>
-                <div style={{background:'rgba(6,5,14,0.85)',border:'1px solid rgba(255,130,180,0.25)',borderRadius:'20px',padding:'28px',marginBottom:'16px',textAlign:'center'}}>
+                <div style={{background:'rgba(26,16,64,0.85)',border:'1px solid rgba(255,130,180,0.25)',borderRadius:'20px',padding:'28px',marginBottom:'16px',textAlign:'center'}}>
                   <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',marginBottom:'12px'}}>COMPATIBILITY SCORE</p>
                   <p style={{fontStyle:'italic',fontSize:'72px',background:'linear-gradient(135deg,#FFD6A0,#FF82B4)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'4px',lineHeight:1}}>{result.score}%</p>
                   <p style={{fontStyle:'italic',fontSize:'22px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'16px'}}>{result.title}</p>
