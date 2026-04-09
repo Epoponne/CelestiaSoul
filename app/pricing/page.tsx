@@ -121,6 +121,7 @@ export default function Pricing() {
           <p style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',textAlign:'center',marginBottom:'20px'}}>{star} FREQUENTLY ASKED {star}</p>
           <div style={{display:'flex',flexDirection:'column',gap:'16px'}}>
             {[
+              {q:'What makes readings personalized?',a:'Your readings are based on your natal birth chart — your sun sign, moon sign and rising sign — to generate cosmic guidance uniquely tailored to your blueprint.'},
               {q:'Do I need a credit card for the free trial?',a:'No! You can start your 3-day free trial without entering any payment information. Only upgrade when you are ready.'},
               {q:'Can I cancel anytime?',a:'Yes absolutely. Cancel anytime with one click from your profile page. No penalties, no questions asked.'},
               {q:'What happens after my free trial?',a:'After 3 days you will be prompted to subscribe for $10/month to continue accessing all sacred features.'},
