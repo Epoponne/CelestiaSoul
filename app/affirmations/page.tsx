@@ -43,7 +43,7 @@ export default function Affirmations() {
   ]
 
   return (
-    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
+    <main style={{background:'#0D0B1E ',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
       <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 100px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>

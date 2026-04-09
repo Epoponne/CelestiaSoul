@@ -75,7 +75,7 @@ export default function BirthChart() {
   }
 
   return (
-    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'20px'}}>
+    <main style={{background:'#0D0B1E ',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'20px'}}>
       <div style={{width:'100%',maxWidth:'480px'}}>
 
         <p style={{textAlign:'center',fontSize:'11px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>✦ CELESTIASOUL ✦</p>

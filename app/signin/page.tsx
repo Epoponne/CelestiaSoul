@@ -52,7 +52,7 @@ export default function SignIn() {
   }
 
   return (
-    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'20px',fontFamily:'Georgia,serif'}}>
+    <main style={{background:'#0D0B1E ',minHeight:'100vh',color:'#E8E0FF',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'20px',fontFamily:'Georgia,serif'}}>
       <div style={{width:'100%',maxWidth:'420px'}}>
         <p style={{textAlign:'center',fontSize:'11px',letterSpacing:'6px',color:'rgba(200,168,255,0.4)',marginBottom:'8px'}}>{star} CELESTIASOUL {star}</p>
         <h1 style={{textAlign:'center',fontSize:'36px',fontStyle:'italic',fontWeight:300,letterSpacing:'4px',background:'linear-gradient(135deg,#DDD0FF,#FFE8C8,#C8E8FF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',marginBottom:'8px'}}>

@@ -31,7 +31,7 @@ export default function RootLayout({
         <meta name="twitter:title" content="CelestiaSOUL - Sacred Spiritual Wellness" />
         <meta name="twitter:description" content="Personalized AI astrology readings, sacred breathwork, healing Solfeggio frequencies and moon rituals." />
       </head>
-      <body style={{margin:0,padding:0,background:'#06050E',minHeight:'100vh',overflowX:'hidden'}}>
+      <body style={{margin:0,padding:0,background:'#0D0B1E ',minHeight:'100vh',overflowX:'hidden'}}>
         {children}
       </body>
     </html>

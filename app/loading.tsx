@@ -2,7 +2,7 @@ export default function Loading() {
   const star = '\u2726'
 
   return (
-    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'24px'}}>
+    <main style={{background:'#0D0B1E ',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'24px'}}>
       <div style={{textAlign:'center'}}>
 
         <div style={{marginBottom:'24px',position:'relative'}}>

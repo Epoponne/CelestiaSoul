@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-        <body style="margin:0;padding:0;background:#06050E;font-family:Georgia,serif;">
+        <body style="margin:0;padding:0;background:#0D0B1E ;font-family:Georgia,serif;">
           <div style="max-width:560px;margin:0 auto;padding:40px 24px;">
 
             <div style="text-align:center;margin-bottom:32px;">

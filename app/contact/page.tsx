@@ -39,7 +39,7 @@ export default function Contact() {
   }
 
   return (
-    <main style={{background:'#06050E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
+    <main style={{background:'#0D0B1E ',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif'}}>
       <div style={{maxWidth:'680px',margin:'0 auto',padding:'0 18px 60px'}}>
 
         <nav style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'22px 0'}}>
@@ -84,12 +84,12 @@ export default function Contact() {
             <div style={{marginBottom:'16px'}}>
               <label style={{fontFamily:'sans-serif',fontSize:'10px',letterSpacing:'3px',color:'rgba(200,168,255,0.5)',display:'block',marginBottom:'8px'}}>SUBJECT</label>
               <select value={subject} onChange={e=>setSubject(e.target.value)} style={{width:'100%',background:'rgba(138,90,255,0.07)',border:'1px solid rgba(200,168,255,0.15)',borderRadius:'10px',padding:'12px 16px',color:'#E8E0FF',fontSize:'14px',outline:'none',fontFamily:'Georgia,serif'}}>
-                <option value="" style={{background:'#06050E'}}>Select a topic...</option>
-                <option value="Technical Support" style={{background:'#06050E'}}>Technical Support</option>
-                <option value="Billing & Subscription" style={{background:'#06050E'}}>Billing & Subscription</option>
-                <option value="My Astrology Reading" style={{background:'#06050E'}}>My Astrology Reading</option>
-                <option value="Feature Request" style={{background:'#06050E'}}>Feature Request</option>
-                <option value="Other" style={{background:'#06050E'}}>Other</option>
+                <option value="" style={{background:'#0D0B1E '}}>Select a topic...</option>
+                <option value="Technical Support" style={{background:'#0D0B1E '}}>Technical Support</option>
+                <option value="Billing & Subscription" style={{background:'#0D0B1E '}}>Billing & Subscription</option>
+                <option value="My Astrology Reading" style={{background:'#0D0B1E '}}>My Astrology Reading</option>
+                <option value="Feature Request" style={{background:'#0D0B1E '}}>Feature Request</option>
+                <option value="Other" style={{background:'#0D0B1E '}}>Other</option>
               </select>
             </div>
             <div style={{marginBottom:'24px'}}>
