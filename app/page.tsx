@@ -6,7 +6,7 @@ export default function Home() {
   const star = '\u2726'
 
   return (
-    <main style={{background:'#0D0B1E',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif',overflowX:'hidden',width:'100vw',maxWidth:'100vw'}}>
+    <main style={{background:'transparent',minHeight:'100vh',color:'#E8E0FF',fontFamily:'Georgia,serif',overflowX:'hidden',width:'100vw',maxWidth:'100vw'}}>
 
       <div style={{position:'relative',minHeight:'100vh',display:'flex',flexDirection:'column',width:'100%',overflow:'hidden'}}>
         <video
@@ -46,7 +46,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{background:'#0D0B1E',padding:'40px 20px',width:'100%',boxSizing:'border-box'}}>
+      <div style={{background:'transparent',padding:'40px 20px',width:'100%',boxSizing:'border-box'}}>
 
         <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'1px',background:'rgba(200,168,255,0.08)',maxWidth:'800px',margin:'0 auto',borderRadius:'16px',overflow:'hidden',marginBottom:'40px'}}>
           {[
@@ -55,7 +55,7 @@ export default function Home() {
             {icon:'🎵',title:'Sound Healing',desc:'7 frequencies from 396 Hz to 963 Hz for deep healing'},
             {icon:'📓',title:'Moon Rituals',desc:'Journal and rituals aligned with each lunar cycle'},
           ].map(({icon,title,desc})=>(
-            <div key={title} style={{background:'#0D0B1E',padding:'24px 16px',textAlign:'center'}}>
+            <div key={title} style={{background:'transparent',padding:'24px 16px',textAlign:'center'}}>
               <span style={{fontSize:'28px',display:'block',marginBottom:'10px'}}>{icon}</span>
               <div style={{fontStyle:'italic',fontSize:'clamp(13px,3.5vw,17px)',letterSpacing:'1px',color:'#C8A8FF',marginBottom:'6px'}}>{title}</div>
               <div style={{fontFamily:'sans-serif',fontWeight:300,fontSize:'clamp(10px,2.5vw,12px)',color:'rgba(200,168,255,0.5)',lineHeight:1.7}}>{desc}</div>

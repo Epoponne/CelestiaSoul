@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
@@ -43,7 +43,7 @@ export default function Dashboard() {
       if (permission === 'granted') {
         setNotifAsked(true)
         setNotifSupported(false)
-        new Notification('CelestiaSOUL ✦', {
+        new Notification('CelestiaSOUL ?', {
           body: 'You will now receive your daily cosmic reading reminders!',
           icon: '/icon-192.png'
         })
@@ -122,22 +122,22 @@ export default function Dashboard() {
   }
 
   const navItems = [
-    {label:'Home', route:'/dashboard', emoji:'🏠'},
-    {label:'Breathe', route:'/breathing', emoji:'🌬️'},
-    {label:'Music', route:'/music', emoji:'🎵'},
-    {label:'Reading', route:'/reading', emoji:'🔮'},
-    {label:'Journal', route:'/journal', emoji:'📓'},
+    {label:'Home', route:'/dashboard', emoji:'??'},
+    {label:'Breathe', route:'/breathing', emoji:'???'},
+    {label:'Music', route:'/music', emoji:'??'},
+    {label:'Reading', route:'/reading', emoji:'??'},
+    {label:'Journal', route:'/journal', emoji:'??'},
   ]
 
   const sacredTools = [
-    {icon:'🃏',title:'Daily Tarot',desc:'Draw your card for cosmic guidance',badge:'Paid',route:'/tarot'},
-    {icon:'💫',title:'Affirmations',desc:'AI-powered daily affirmations',badge:'Free',route:'/affirmations'},
-    {icon:'💑',title:'Compatibility',desc:'Zodiac love compatibility',badge:'Paid',route:'/compatibility'},
-    {icon:'🔵',title:'Birth Chart',desc:'Your natal chart wheel',badge:'Paid',route:'/birthchart-wheel'},
-    {icon:'🧘',title:'Meditation',desc:'Sacred meditation timer',badge:'Paid',route:'/meditation'},
-    {icon:'💎',title:'Crystals',desc:'Crystal healing guide',badge:'Free',route:'/crystals'},
-    {icon:'🌈',title:'Chakras',desc:'Chakra alignment guide',badge:'Paid',route:'/chakras'},
-    {icon:'⬡',title:'Sacred Geometry',desc:'Sacred geometry wisdom',badge:'Free',route:'/geometry'},
+    {icon:'??',title:'Daily Tarot',desc:'Draw your card for cosmic guidance',badge:'Paid',route:'/tarot'},
+    {icon:'??',title:'Affirmations',desc:'AI-powered daily affirmations',badge:'Free',route:'/affirmations'},
+    {icon:'??',title:'Compatibility',desc:'Zodiac love compatibility',badge:'Paid',route:'/compatibility'},
+    {icon:'??',title:'Birth Chart',desc:'Your natal chart wheel',badge:'Paid',route:'/birthchart-wheel'},
+    {icon:'??',title:'Meditation',desc:'Sacred meditation timer',badge:'Paid',route:'/meditation'},
+    {icon:'??',title:'Crystals',desc:'Crystal healing guide',badge:'Free',route:'/crystals'},
+    {icon:'??',title:'Chakras',desc:'Chakra alignment guide',badge:'Paid',route:'/chakras'},
+    {icon:'?',title:'Sacred Geometry',desc:'Sacred geometry wisdom',badge:'Free',route:'/geometry'},
   ]
 
   return (
@@ -233,10 +233,10 @@ export default function Dashboard() {
         <span style={{fontStyle:'italic',fontSize:'11px',letterSpacing:'4px',color:'rgba(200,168,255,0.38)',display:'block',marginBottom:'12px'}}>{star} Today's Sacred Practice {star}</span>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px',marginBottom:'22px'}}>
           {[
-            {icon:'🌙',title:'Sacred Breathwork',desc:'Choose your technique and healing frequency.',meta:'Begin your session',badge:'Ready',route:'/breathing'},
-            {icon:'🌌',title:'Cosmic Soundbath',desc:'Deep immersion with Solfeggio tones.',meta:recommendation?.frequency || moonData.frequency,badge:'New',route:`/music?freq=${encodeURIComponent(recommendation?.frequency || moonData.frequency)}`},
-            {icon:'⭐',title:'Morning Reading',desc:'Your daily astrological insight awaits.',meta:'Tap to read',badge:'Ready',route:'/reading'},
-            {icon:'📓',title:'Soul Journal',desc:'Reflect on your cosmic journey today.',meta:'Write your truth',badge:'Ready',route:'/journal'},
+            {icon:'??',title:'Sacred Breathwork',desc:'Choose your technique and healing frequency.',meta:'Begin your session',badge:'Ready',route:'/breathing'},
+            {icon:'??',title:'Cosmic Soundbath',desc:'Deep immersion with Solfeggio tones.',meta:recommendation?.frequency || moonData.frequency,badge:'New',route:`/music?freq=${encodeURIComponent(recommendation?.frequency || moonData.frequency)}`},
+            {icon:'?',title:'Morning Reading',desc:'Your daily astrological insight awaits.',meta:'Tap to read',badge:'Ready',route:'/reading'},
+            {icon:'??',title:'Soul Journal',desc:'Reflect on your cosmic journey today.',meta:'Write your truth',badge:'Ready',route:'/journal'},
           ].map(({icon,title,desc,meta,badge,route}) => (
             <div key={title} onClick={() => router.push(route)} style={{background:'rgba(255,255,255,0.028)',border:'1px solid rgba(200,168,255,0.1)',borderRadius:'16px',padding:'20px 16px',cursor:'pointer'}}>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'10px'}}>
@@ -279,7 +279,7 @@ export default function Dashboard() {
 
         <div onClick={()=>router.push('/pricing')} style={{background:'linear-gradient(135deg,rgba(138,90,255,0.2),rgba(255,214,160,0.08))',border:'1px solid rgba(200,168,255,0.25)',borderRadius:'16px',padding:'16px 20px',marginBottom:'22px',textAlign:'center',cursor:'pointer'}}>
           <p style={{fontStyle:'italic',fontSize:'14px',letterSpacing:'3px',color:'#C8A8FF',marginBottom:'4px'}}>{star} Unlock Full Sacred Access {star}</p>
-          <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(255,214,160,0.6)',letterSpacing:'2px'}}>$10/month · 3-day free trial</p>
+          <p style={{fontFamily:'sans-serif',fontSize:'11px',color:'rgba(255,214,160,0.6)',letterSpacing:'2px'}}>$10/month � 3-day free trial</p>
         </div>
 
       </div>
