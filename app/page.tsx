@@ -100,7 +100,7 @@ export default function Home() {
           <p style={{fontFamily:'sans-serif',fontSize:'9px',letterSpacing:'4px',color:'rgba(200,168,255,0.5)',textAlign:'center',marginBottom:'20px'}}>{star} WHAT SOULS ARE SAYING {star}</p>
           <div style={{display:'flex',flexDirection:'column',gap:'14px'}}>
             {[
-              {quote:'The AI readings are incredibly accurate. I look forward to them every morning. CelestiaSOUL has completely changed my spiritual practice.',name:'Sarah M.',sign:'Scorpio Rising',stars:'★★★★★'},
+              {quote:'The readings are incredibly accurate. I look forward to them every morning. CelestiaSOUL has completely changed my spiritual practice.',name:'Sarah M.',sign:'Scorpio Rising',stars:'★★★★★'},
               {quote:'The breathing exercises combined with the healing frequencies have transformed my meditation. I feel so aligned every day.',name:'Luna K.',sign:'Pisces Sun',stars:'★★★★★'},
               {quote:'I never felt so connected to the cosmos. CelestiaSOUL is my daily sacred ritual. The personalized readings blow my mind every time.',name:'Maya R.',sign:'Cancer Moon',stars:'★★★★★'},
             ].map(({quote,name,sign,stars})=>(
